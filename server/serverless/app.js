@@ -8,6 +8,8 @@ const STUDENT_TABLE = process.env.STUDENT_TABLE;
 const TEACHER_TABLE = process.env.TEACHER_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 app.use(bodyParser.json({ strict: false }));
+const passwordHash = require('password-hash');
+const AUTH_TABLE = process.env.AUTH_TABLE;
 
 module.exports.server = async event => {
   return {
@@ -26,25 +28,57 @@ module.exports.server = async event => {
   // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
 };
 
-
+// One function for adding Student or Teacher, select table using type, API: /add 
 // zubayr
-app.post('/addStudent', (req, res) => {
-    let post = req.body;
-    let sql = 'INSERT INTO student SET ?';
-    let query = db.query(sql, post, (err, result) => {
-        if(err) throw err;
-        res.send('Student added...');
-    });
-});
+app.post('/add', (req, res) => {
+    // let post = req.body;
+    // let sql = 'INSERT INTO student SET ?';
+    // let query = db.query(sql, post, (err, result) => {
+    //     if(err) throw err;
+    //     res.send('Student added...');
+    // });
 
-//zubayr
-app.post('/addTeacher', (req, res) => {
-    let post = req.body;
-    let sql = 'INSERT INTO teacher SET ?';
-    let query = db.query(sql, post, (err, result) => {
-        if(err) throw err;
-        res.send('Teacher added...');
-    });
+    const {
+      username,
+      password
+      first_name,
+      last_name,
+      location,
+      type,
+    } = req.body;
+
+    tableName = type === 'student' ? STUDENT_TABLE : TEACHER_TABLE
+
+    data = await dynamoDb.transactWriteItems({
+      TransactItems: [
+        {
+            putItem: {
+                TableName: tableName
+                // Is it possible to set userName primary key?
+                // Key: { id: { S: username } },
+                Item: {
+                  "userName": username,
+                  "firstName": first_name,
+                  "lastName": last_name,
+                  "location": location,
+                  "type": type,
+                },
+            },
+        },
+        {
+            putItem: {
+                TableName: AUTH_TABLE,
+                // Key: { id: { S: username } },
+                Item: {
+                  "userName": username,
+                  "password": passwordHash.generate(password),
+                  "type": type,
+                }
+            }
+        },
+      ]
+    }).promise().catch(error => alert(error.message));
+
 });
 
 // arslan

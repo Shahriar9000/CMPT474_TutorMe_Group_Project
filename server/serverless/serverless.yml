@@ -2,6 +2,7 @@ service: serverless-aws-nodejs-dynamodb
 custom:
   studentTable: 'student-table-${self:provider.stage}'
   teacherTable: 'teacher-details-table-${self:provider.stage}'
+  authTable: 'auth-table-${self:provider.stage}'
 provider:
   name: aws 
   runtime: nodejs12.x
@@ -20,6 +21,7 @@ provider:
   environment:
     STUDENT_TABLE: ${self:custom.studentTable}
     TEACHER_TABLE: ${self:custom.teacherTable}
+    AUTH_TABLE: ${self:custom.authTable}
 functions:
   app:
     handler: app.server
@@ -65,3 +67,19 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.teacherTable}
+
+    AuthDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userName
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.authTable}
