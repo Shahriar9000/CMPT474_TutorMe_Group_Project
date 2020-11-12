@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const express = require('express')
 const app = express()
 const AWS = require('aws-sdk');
-const USERS_TABLE = process.env.USERS_TABLE;
+const STUDENT_TABLE = process.env.STUDENT_TABLE;
+const TEACHER_TABLE = process.env.TEACHER_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 app.use(bodyParser.json({ strict: false }));
 
@@ -48,41 +49,49 @@ app.post('/addTeacher', (req, res) => {
 
 // arslan
 app.post('/auth', (req, res) => {
-        let sql = '';
-        if(req.body.type === '1'){ sql = `SELECT * FROM student WHERE username = '${req.body.username}' AND password = '${req.body.password}'`;}
-        else if(req.body.type === '2'){sql = `SELECT * FROM teacher WHERE username = '${req.body.username}' AND password = '${req.body.password}'`;}
-        else{
-            let result = {auth:'false'};
-            res.send(result);
-            return;
+    const { username, pass, type } = req.body;
+    const params = {
+        TableName: type === 'student' ? STUDENT_TABLE : TEACHER_TABLE,
+        Key: {
+            userName: username,
+        },
+    }
+    dynamoDb.get(params, (error, result) => {
+        if (error) {
+            console.log(error);
+            res.status(400).json({ error: `Username not found` });
         }
-        let query = db.query(sql, (err, results) => {
-            if(err) throw err;
-            if(results.length > 0){
-                results[0].auth ='true';
-                if(req.body.type === '1'){ results[0].type = '1';}
-                else if(req.body.type === '2'){results[0].type = '2';}
-            }
-            else{
-                const result = {auth: 'false'};
-                results.push(result);
-            }
-            
-            res.send(results);
-            return;
-        });
+        if (result.Item.pass === pass) {
+            res.json({ auth: true, type: result.Item.type });
+        } else {
+            res.status(404).json({ error: `Username and password does not match` });
 
+        }
+    });
 });
 
 
 
 // arslan
 app.get('/getStudent/:location', (req, res) => {
-    let sql = `SELECT * FROM student WHERE address = '${req.params.location}'`;
-    let query = db.query(sql, (err, result) => {
-        if(err) throw err;
-        console.log(result);
-        res.send(result);
+    const location = req.params.location;
+
+    var params = {
+        TableName: STUDENT_TABLE,
+        KeyConditionExpression: "#location = :location",
+        ExpressionAttributeNames: {
+            "#location": "location"
+        },
+        ExpressionAttributeValues: {
+            ":location": location
+        }
+    };
+    dynamoDb.get(params, (error, result) => {
+        if (error) {
+            console.log(error);
+            res.json({ error: `No students found for ${location}` });
+        }
+        res.json(result);
     });
 });
 
@@ -104,55 +113,21 @@ app.get('/getTeacher/username/:username', (req, res) => {
 });
 // arslan
 app.get('/getStudent/username/:username', (req, res) => {
-    let sql = `SELECT * FROM student WHERE username = '${req.params.username}'`;
-    let query = db.query(sql, (err, result) => {
-        if(err) throw err;
-        res.send(result);
+    const username = req.params.username;
+
+    const params = {
+        TableName: type === 'student' ? STUDENT_TABLE : TEACHER_TABLE,
+        Key: {
+            userName: username,
+        },
+    }
+    dynamoDb.get(params, (error, result) => {
+        if (error) {
+            console.log(error);
+            res.json({ error: `No students found with username: ${username}` });
+        }
+        res.json(result);
     });
 });
 
-app.listen('3000', () => {
-    console.log('Server started on port 3000');
-});
-
-// Create User endpoint
-app.post('/users', function (req, res) {
-  const { userId, name } = req.body;
-const params = {
-    TableName: USERS_TABLE,
-    Item: {
-      userId: userId,
-      name: name,
-      age: 19,
-    },
-  };
-dynamoDb.put(params, (error) => {
-    if (error) {
-      console.log(error);
-      res.status(400).json({ error: `Could not create user ${userId}` });
-    }
-    res.json({ userId, name });
-  });
-})
-// Get User endpoint
-app.get('/users/:userId', function (req, res) {
-  const params = {
-    TableName: USERS_TABLE,
-    Key: {
-      userId: req.params.userId,
-    },
-  }
-dynamoDb.get(params, (error, result) => {
-    if (error) {
-      console.log(error);
-      res.status(400).json({ error: `Could not get user ${userId}` });
-    }
-    if (result.Item) {
-      const {userId, name} = result.Item;
-      res.json({ userId, name });
-    } else {
-      res.status(404).json({ error: `User ${userId} not found` });
-    }
-  });
-})
 module.exports.server = sls(app)
