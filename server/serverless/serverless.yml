@@ -1,0 +1,67 @@
+service: serverless-aws-nodejs-dynamodb
+custom:
+  studentTable: 'student-table-${self:provider.stage}'
+  teacherTable: 'teacher-details-table-${self:provider.stage}'
+provider:
+  name: aws 
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: '*'
+  environment:
+    STUDENT_TABLE: ${self:custom.studentTable}
+    TEACHER_TABLE: ${self:custom.teacherTable}
+functions:
+  app:
+    handler: app.server
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+resources:
+  Resources:
+    StudentsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userName
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.studentTable}
+    
+    TeachersDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: userName
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.teacherTable}
