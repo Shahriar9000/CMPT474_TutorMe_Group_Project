@@ -1,10 +1,8 @@
 service: tutor-me
 custom:
-  studentTable: 'student-table-${self:provider.stage}'
-  teacherTable: 'teacher-details-table-${self:provider.stage}'
-  authTable: 'auth-table-${self:provider.stage}'
-  studentTable: 'student-details-${self:provider.stage}'
-  tutorTable: 'tutor-details-table-${self:provider.stage}'
+  authTable: 'authentication-${self:provider.stage}'
+  studentsTable: 'students-${self:provider.stage}'
+  tutorsTable: 'tutors-${self:provider.stage}'
 provider:
   name: aws 
   runtime: nodejs12.x
@@ -21,10 +19,9 @@ provider:
         - dynamodb:DeleteItem
       Resource: '*'
   environment:
-    STUDENT_TABLE: ${self:custom.studentTable}
-    TEACHER_TABLE: ${self:custom.teacherTable}
+    STUDENTS_TABLE: ${self:custom.studentsTable}
     AUTH_TABLE: ${self:custom.authTable}
-    TEACHER_TABLE: ${self:custom.tutorTable}
+    TUTORS_TABLE: ${self:custom.tutorsTable}
 functions:
   app:
     handler: app.server
@@ -53,7 +50,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:custom.studentTable}
+        TableName: ${self:custom.studentsTable}
     
     TutorsDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
@@ -69,21 +66,20 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:custom.teacherTable}
+        TableName: ${self:custom.tutorsTable}
 
-    AuthDynamoDBTable:
+    AuthenticationDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: userName
+            AttributeName: username
             AttributeType: S
         KeySchema:
           -
-            AttributeName: userName
+            AttributeName: username
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.authTable}
-        TableName: ${self:custom.tutorTable}

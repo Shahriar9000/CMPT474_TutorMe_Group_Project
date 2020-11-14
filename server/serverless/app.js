@@ -4,71 +4,41 @@ const bodyParser = require('body-parser');
 const express = require('express')
 const app = express()
 const AWS = require('aws-sdk');
-const STUDENT_TABLE = process.env.STUDENT_TABLE;
-const TEACHER_TABLE = process.env.TEACHER_TABLE;
+const STUDENTS_TABLE = process.env.STUDENTS_TABLE;
+const TUTORS_TABLE = process.env.TUTORS_TABLE;
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-app.use(bodyParser.json({ strict: false }));
-const passwordHash = require('password-hash');
-const AUTH_TABLE = process.env.AUTH_TABLE;
-
-module.exports.server = async event => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(
-      {
-        message: 'Go Serverless v1.0! Your function executed successfully!',
-        input: event,
-      },
-      null,
-      2
-    ),
-  };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
-};
-
-// One function for adding Student or Teacher, select table using type, API: /add 
-//app.use(bodyParser.json({ strict: false }));
-//app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+const passwordHash = require('password-hash');
+const AUTH_TABLE = process.env.AUTH_TABLE;
+var cors = require('cors')
+app.use(cors());
+
+
 
 app.get('/', async (req, res, next) => { 
     res.status(200).json('Hello Serverless!')
    });
 
-// zubayr
-app.post('/add', (req, res) => {
-    // let post = req.body;
-    // let sql = 'INSERT INTO student SET ?';
-    // let query = db.query(sql, post, (err, result) => {
-    //     if(err) throw err;
-    //     res.send('Student added...');
-    // });
-
+// One function for adding Student or Teacher, select table using type, API: /add 
+/*
+app.post('/add', async (req, res) => {
     const {
-      username,
-      password
-      first_name,
-      last_name,
-      location,
-      type,
+      username, password, first_name,
+      last_name, location, type,
     } = req.body;
 
-    tableName = type === 'student' ? STUDENT_TABLE : TEACHER_TABLE
+    tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE
 
     data = await dynamoDb.transactWriteItems({
       TransactItems: [
         {
             putItem: {
-                TableName: tableName
+                TableName: tableName,
                 // Is it possible to set userName primary key?
                 // Key: { id: { S: username } },
                 Item: {
-                  "userName": username,
+                  "username": username,
                   "firstName": first_name,
                   "lastName": last_name,
                   "location": location,
@@ -91,13 +61,13 @@ app.post('/add', (req, res) => {
     }).promise().catch(error => alert(error.message));
 
 });
+*/
 
-// arslan
 app.post('/auth', async (req, res, next) => {
     const { username, pass, type } = req.body;
     console.log(`${username}, ${pass}, ${type}`)
     const params = {
-        TableName: type === 'student' ? STUDENT_TABLE : TEACHER_TABLE,
+        TableName: type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE,
         Key: {
             username: username,
         },
@@ -118,13 +88,13 @@ app.post('/auth', async (req, res, next) => {
     });
 });
 
-// arslan
+
 app.get('/getStudent/:location', (req, res) => {
     try {
         const location = req.params.location;
 
         var params = {
-            TableName: STUDENT_TABLE,
+            TableName: STUDENTS_TABLE,
             FilterExpression: '#loc = :loc',
             ExpressionAttributeNames: {
                 '#loc': 'location',
@@ -146,13 +116,13 @@ app.get('/getStudent/:location', (req, res) => {
     }
 });
 
-// raad
-app.get('/getTeacher/:location', (req, res) => {
+
+app.get('/getTutor/:location', (req, res) => {
     try {
         const location = req.params.location;
 
         var params = {
-            TableName: TEACHER_TABLE,
+            TableName: TUTORS_TABLE,
             FilterExpression: '#loc = :loc',
             ExpressionAttributeNames: {
                 '#loc': 'location',
@@ -164,7 +134,7 @@ app.get('/getTeacher/:location', (req, res) => {
         dynamoDb.scan(params, (error, result) => {
             if (error) {
                 console.log(error);
-                res.status(404).json({ error: `No Teacher found for ${location}` });
+                res.status(404).json({ error: `No Tutor found for ${location}` });
             }
             console.log(result);
             res.status(200).json(result.Items);
@@ -173,20 +143,32 @@ app.get('/getTeacher/:location', (req, res) => {
         console.log(err)
     }
 });
-// raad
-app.get('/getTeacher/username/:username', (req, res) => {
-    let sql = `SELECT * FROM teacher WHERE username = '${req.params.username}'`;
-    let query = db.query(sql, (err, result) => {
-        if(err) throw err;
-        res.send(result);
+
+
+app.get('/getTutor/username/:username', (req, res) => {
+    const username = req.params.username;
+    
+        const params = {
+            TableName: TUTORS_TABLE,
+            Key: {
+                userName: username,
+            },
+        }
+        dynamoDb.get(params, (error, result) => {
+            if (error) {
+                console.log(error);
+                res.json({ error: `No Tutors found with username: ${username}` });
+            }
+            res.json(result);
+        });
     });
-});
-// arslan
+
+
 app.get('/getStudent/username/:username', (req, res) => {
     const username = req.params.username;
 
     const params = {
-        TableName: STUDENT_TABLE,
+        TableName: STUDENTS_TABLE,
         Key: {
             userName: username,
         },
