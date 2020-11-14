@@ -13,7 +13,7 @@
 
 `$ npm install -g serverless`
 
-`$ npm install`
+`$ npm i --save aws-sdk body-parser express password-hash serverless-http cors`
 
 **Make sure to set up AWS configuration**
 
