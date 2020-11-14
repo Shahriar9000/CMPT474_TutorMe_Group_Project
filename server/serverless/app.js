@@ -29,6 +29,17 @@ module.exports.server = async event => {
 };
 
 // One function for adding Student or Teacher, select table using type, API: /add 
+//app.use(bodyParser.json({ strict: false }));
+//app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
+
+app.get('/', async (req, res, next) => { 
+    res.status(200).json('Hello Serverless!')
+   });
+
 // zubayr
 app.post('/add', (req, res) => {
     // let post = req.body;
@@ -82,21 +93,24 @@ app.post('/add', (req, res) => {
 });
 
 // arslan
-app.post('/auth', (req, res) => {
+app.post('/auth', async (req, res, next) => {
     const { username, pass, type } = req.body;
+    console.log(`${username}, ${pass}, ${type}`)
     const params = {
         TableName: type === 'student' ? STUDENT_TABLE : TEACHER_TABLE,
         Key: {
-            userName: username,
+            username: username,
         },
     }
+    console.log(`params: ${params}`)
     dynamoDb.get(params, (error, result) => {
         if (error) {
             console.log(error);
             res.status(400).json({ error: `Username not found` });
         }
-        if (result.Item.pass === pass) {
-            res.json({ auth: true, type: result.Item.type });
+        console.log(result);
+        if (result && result.Item.pass === pass) {
+            res.status(200).json({ auth: true, type: result.Item.type });
         } else {
             res.status(404).json({ error: `Username and password does not match` });
 
@@ -104,38 +118,60 @@ app.post('/auth', (req, res) => {
     });
 });
 
-
-
 // arslan
 app.get('/getStudent/:location', (req, res) => {
-    const location = req.params.location;
+    try {
+        const location = req.params.location;
 
-    var params = {
-        TableName: STUDENT_TABLE,
-        KeyConditionExpression: "#location = :location",
-        ExpressionAttributeNames: {
-            "#location": "location"
-        },
-        ExpressionAttributeValues: {
-            ":location": location
-        }
-    };
-    dynamoDb.get(params, (error, result) => {
-        if (error) {
-            console.log(error);
-            res.json({ error: `No students found for ${location}` });
-        }
-        res.json(result);
-    });
+        var params = {
+            TableName: STUDENT_TABLE,
+            FilterExpression: '#loc = :loc',
+            ExpressionAttributeNames: {
+                '#loc': 'location',
+            },
+            ExpressionAttributeValues: {
+                ':loc': location,
+            },
+        };
+        dynamoDb.scan(params, (error, result) => {
+            if (error) {
+                console.log(error);
+                res.status(404).json({ error: `No students found for ${location}` });
+            }
+            console.log(result);
+            res.status(200).json(result.Items);
+        });
+    } catch (err) {
+        console.log(err)
+    }
 });
 
 // raad
 app.get('/getTeacher/:location', (req, res) => {
-    let sql = `SELECT * FROM teacher WHERE address = '${req.params.location}'`;
-    let query = db.query(sql, (err, result) => {
-        if(err) throw err;
-        res.send(result);
-    });
+    try {
+        const location = req.params.location;
+
+        var params = {
+            TableName: TEACHER_TABLE,
+            FilterExpression: '#loc = :loc',
+            ExpressionAttributeNames: {
+                '#loc': 'location',
+            },
+            ExpressionAttributeValues: {
+                ':loc': location,
+            },
+        };
+        dynamoDb.scan(params, (error, result) => {
+            if (error) {
+                console.log(error);
+                res.status(404).json({ error: `No Teacher found for ${location}` });
+            }
+            console.log(result);
+            res.status(200).json(result.Items);
+        });
+    } catch (err) {
+        console.log(err)
+    }
 });
 // raad
 app.get('/getTeacher/username/:username', (req, res) => {
@@ -150,7 +186,7 @@ app.get('/getStudent/username/:username', (req, res) => {
     const username = req.params.username;
 
     const params = {
-        TableName: type === 'student' ? STUDENT_TABLE : TEACHER_TABLE,
+        TableName: STUDENT_TABLE,
         Key: {
             userName: username,
         },
@@ -163,5 +199,4 @@ app.get('/getStudent/username/:username', (req, res) => {
         res.json(result);
     });
 });
-
 module.exports.server = sls(app)

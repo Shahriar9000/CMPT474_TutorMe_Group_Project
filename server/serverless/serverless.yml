@@ -1,8 +1,10 @@
-service: serverless-aws-nodejs-dynamodb
+service: tutor-me
 custom:
   studentTable: 'student-table-${self:provider.stage}'
   teacherTable: 'teacher-details-table-${self:provider.stage}'
   authTable: 'auth-table-${self:provider.stage}'
+  studentTable: 'student-details-${self:provider.stage}'
+  tutorTable: 'tutor-details-table-${self:provider.stage}'
 provider:
   name: aws 
   runtime: nodejs12.x
@@ -22,6 +24,7 @@ provider:
     STUDENT_TABLE: ${self:custom.studentTable}
     TEACHER_TABLE: ${self:custom.teacherTable}
     AUTH_TABLE: ${self:custom.authTable}
+    TEACHER_TABLE: ${self:custom.tutorTable}
 functions:
   app:
     handler: app.server
@@ -41,27 +44,27 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: userName
+            AttributeName: username
             AttributeType: S
         KeySchema:
           -
-            AttributeName: userName
+            AttributeName: username
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.studentTable}
     
-    TeachersDynamoDBTable:
+    TutorsDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: userName
+            AttributeName: username
             AttributeType: S
         KeySchema:
           -
-            AttributeName: userName
+            AttributeName: username
             KeyType: HASH
         ProvisionedThroughput:
           ReadCapacityUnits: 1
@@ -83,3 +86,4 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.authTable}
+        TableName: ${self:custom.tutorTable}
