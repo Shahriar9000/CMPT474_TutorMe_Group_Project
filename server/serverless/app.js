@@ -4,15 +4,18 @@ const bodyParser = require('body-parser');
 const express = require('express')
 const app = express()
 const AWS = require('aws-sdk');
-const STUDENTS_TABLE = process.env.STUDENTS_TABLE;
-const TUTORS_TABLE = process.env.TUTORS_TABLE;
+var cors = require('cors')
+const passwordHash = require('password-hash');
+
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-const passwordHash = require('password-hash');
-const AUTH_TABLE = process.env.AUTH_TABLE;
-var cors = require('cors')
 app.use(cors());
+
+const STUDENTS_TABLE = process.env.STUDENTS_TABLE;
+const TUTORS_TABLE = process.env.TUTORS_TABLE;
+const AUTH_TABLE = process.env.AUTH_TABLE;
 
 
 
@@ -72,7 +75,6 @@ app.post('/auth', async (req, res, next) => {
             username: username,
         },
     }
-    console.log(`params: ${params}`)
     dynamoDb.get(params, (error, result) => {
         if (error) {
             console.log(error);
@@ -87,7 +89,6 @@ app.post('/auth', async (req, res, next) => {
         }
     });
 });
-
 
 app.get('/getStudent/:location', (req, res) => {
     try {
@@ -116,7 +117,6 @@ app.get('/getStudent/:location', (req, res) => {
     }
 });
 
-
 app.get('/getTutor/:location', (req, res) => {
     try {
         const location = req.params.location;
@@ -144,14 +144,13 @@ app.get('/getTutor/:location', (req, res) => {
     }
 });
 
-
 app.get('/getTutor/username/:username', (req, res) => {
     const username = req.params.username;
     
         const params = {
             TableName: TUTORS_TABLE,
             Key: {
-                userName: username,
+                username: username,
             },
         }
         dynamoDb.get(params, (error, result) => {
@@ -163,14 +162,13 @@ app.get('/getTutor/username/:username', (req, res) => {
         });
     });
 
-
 app.get('/getStudent/username/:username', (req, res) => {
     const username = req.params.username;
 
     const params = {
         TableName: STUDENTS_TABLE,
         Key: {
-            userName: username,
+            username: username,
         },
     }
     dynamoDb.get(params, (error, result) => {
