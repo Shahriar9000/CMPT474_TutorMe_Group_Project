@@ -1,0 +1,73 @@
+body{
+    background-color:whitesmoke;
+}
+#header{
+    color:rgb(82, 107, 250);
+}
+#userheader{
+    color:rgb(221, 159, 240);
+    text-align: end;
+    margin-right: 30px;
+}
+
+#usernheader{
+    color:rgb(77, 15, 248);
+    text-align: start;
+    margin-left: 30px;
+}
+
+#nav{
+    background-color:black;
+    height: 50px;
+    text-align: end;
+    margin-bottom: 50px;
+    margin-top: 0px;
+}
+
+#signUp{
+    text-align: center;
+    color: rgb(228, 161, 17);
+    font-size:x-large;
+    margin-right: 50px;
+}
+#table thead tr{
+    margin-left: 50px;
+    background-color: green;
+    color:white;
+    text-align: left;
+}
+#table tbody tr{
+    margin-left: 50px;
+    background-color: rgb(109, 245, 109);
+    
+    text-align: left;
+}
+#table{
+    margin-left: 50px;
+    background-color: rgb(180, 243, 129);
+    font-size: large;
+    min-width: 800px;
+}
+
+#btnDetails{
+    background-color: yellow;
+}
+#details{
+    background-color: rgb(226, 252, 82);
+    width: 30%;
+    margin-left: 80px;
+    text-align: start;
+    font-size: x-large;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+#btnGoHome{
+    background-color: yellowgreen;
+    font-size: x-large;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+#btnGoHomeDiv{
+    text-align: end;
+}
+

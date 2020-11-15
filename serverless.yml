@@ -1,0 +1,108 @@
+service: tutor-me
+custom:
+  authTable: 'auth-${self:provider.stage}'
+  studentsTable: 'students-details-${self:provider.stage}'
+  tutorsTable: 'tutors-details-${self:provider.stage}'
+
+provider:
+  name: aws 
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: '*'
+  environment:
+    STUDENTS_TABLE: ${self:custom.studentsTable}
+    AUTH_TABLE: ${self:custom.authTable}
+    TUTORS_TABLE: ${self:custom.tutorsTable}
+
+functions:
+  addUserFunction:
+    handler: app-src/addUser/app.addUser
+    events:
+      - http:
+          path: /add
+          method: POST
+          cors: true
+
+  authenticateUserFunction:
+    handler: app-src/authenticateUser/app.authenticateUser
+    events:
+      - http:
+          path: /auth
+          method: POST
+          cors: true
+
+  getStudentFunction:
+    handler: app-src/getStudent/app.getStudent
+    events:
+      - http:
+          path: /getStudent/{proxy+}
+          method: GET
+          cors: true
+
+  getTutorFunction:
+    handler: app-src/getTutor/app.getTutor
+    events:
+      - http:
+          path: /getTutor/{proxy+}
+          method: GET
+          cors: true
+
+resources:
+  Resources:
+    StudentsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: username
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: username
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.studentsTable}
+    
+    TutorsDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: username
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: username
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.tutorsTable}
+
+    AuthenticationDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: username
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: username
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.authTable}
