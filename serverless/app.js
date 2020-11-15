@@ -24,47 +24,53 @@ app.get('/', async (req, res, next) => {
    });
 
 // One function for adding Student or Teacher, select table using type, API: /add 
-/*
 app.post('/add', async (req, res) => {
-    const {
-      username, password, first_name,
-      last_name, location, type,
-    } = req.body;
 
-    tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE
+    // try {
+        const {
+          username, password, firstname,
+          lastname, location, type,
+        } = req.body;
 
-    data = await dynamoDb.transactWriteItems({
-      TransactItems: [
-        {
-            putItem: {
-                TableName: tableName,
-                // Is it possible to set userName primary key?
-                // Key: { id: { S: username } },
-                Item: {
-                  "username": username,
-                  "firstName": first_name,
-                  "lastName": last_name,
-                  "location": location,
-                  "type": type,
+        let tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE;
+
+        let data = await dynamoDb.transactWrite({
+          TransactItems: [
+            {
+                Put: {
+                    TableName: tableName,
+                    // Is it possible to set userName primary key?
+                    // Key: { id: { S: username } },
+                    Item: {
+                      "username": username,
+                      "firstname": firstname,
+                      "lastname": lastname,
+                      "location": location,
+                      "type": type,
+                    },
                 },
             },
-        },
-        {
-            putItem: {
-                TableName: AUTH_TABLE,
-                // Key: { id: { S: username } },
-                Item: {
-                  "userName": username,
-                  "password": passwordHash.generate(password),
-                  "type": type,
+            {
+                Put: {
+                    TableName: AUTH_TABLE,
+                    // Key: { id: { S: username } },
+                    Item: {
+                      "username": username,
+                      "password": passwordHash.generate(password),
+                      "type": type,
+                    }
                 }
-            }
-        },
-      ]
-    }).promise().catch(error => alert(error.message));
+            },
+          ]
+        }).promise().catch(error => res.status(404).json(error));
+    
+    // } catch(err) {
+    //     console.log(err);
+    // }
+    
 
 });
-*/
+
 
 app.post('/auth', async (req, res, next) => {
     const { username, pass, type } = req.body;
