@@ -34,6 +34,22 @@ app.post('/add', async (req, res) => {
 
         let tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE;
 
+        const params = {
+            TableName: STUDENTS_TABLE,
+            Key: {
+                username: username,
+            },
+        }
+        
+        dynamoDb.get(params, (error, result) => {
+            if (result) {
+                // if found
+                res.json({ "error": true, "message": `username already exists: ${username}` });
+
+            }
+        });
+        return;
+
         let data = await dynamoDb.transactWrite({
           TransactItems: [
             {
@@ -63,11 +79,11 @@ app.post('/add', async (req, res) => {
             },
           ]
         }).promise()
-        res.status(200).json({"msg": "User added successfully"})
+        res.status(200).json({ "error": false, "message": "User added successfully"})
     
     } catch(err) {
         console.log(err);
-        res.status(500).json({"msg": err.message})
+        res.status(500).json({ "error": true, "message": err.message})
     }
     
 
