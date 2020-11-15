@@ -107,7 +107,7 @@ app.post('/auth', async (req, res, next) => {
 		}
 		console.log(result);
 		if (result && result.Item.password === password) {
-			res.status(200).json({ auth: true, type: result.Item.type });
+			res.status(200).json({ auth: true, type: result.Item.type, "username": username  });
 		} else {
 			res.status(404).json({ error: `Username and password does not match` });
 
