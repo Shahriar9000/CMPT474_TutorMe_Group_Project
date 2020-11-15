@@ -26,7 +26,7 @@ app.get('/', async (req, res, next) => {
 // One function for adding Student or Teacher, select table using type, API: /add 
 app.post('/add', async (req, res) => {
 
-    // try {
+    try {
         const {
           username, password, firstname,
           lastname, location, type,
@@ -64,9 +64,10 @@ app.post('/add', async (req, res) => {
           ]
         }).promise().catch(error => res.status(404).json(error));
     
-    // } catch(err) {
-    //     console.log(err);
-    // }
+    } catch(err) {
+        console.log(err);
+        res.status(500).json({"msg": err.message})
+    }
     
 
 });
@@ -87,7 +88,7 @@ app.post('/auth', async (req, res, next) => {
             res.status(400).json({ error: `Username not found` });
         }
         console.log(result);
-        if (result && result.Item.pass === pass) {
+        if (result && result.Item.pass === passwordHash.generate(pass)) {
             res.status(200).json({ auth: true, type: result.Item.type });
         } else {
             res.status(404).json({ error: `Username and password does not match` });
