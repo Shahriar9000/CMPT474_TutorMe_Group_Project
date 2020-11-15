@@ -62,7 +62,8 @@ app.post('/add', async (req, res) => {
                 }
             },
           ]
-        }).promise().catch(error => res.status(404).json(error));
+        }).promise()
+        res.status(200).json({"msg": "User added successfully"})
     
     } catch(err) {
         console.log(err);
