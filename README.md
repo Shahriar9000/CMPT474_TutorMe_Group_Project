@@ -12,30 +12,26 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-npm install
-Install & configure the AWS Amplify CLI.
-npm install -g @aws-amplify/cli
+### 'Running Amplify'
 
-amplify configure
-To see a video of how to configure the CLI, click here
+1. npm install Install & configure the AWS Amplify CLI. 
+    npm install -g @aws-amplify/cli
 
-Create a new AWS Amplify Project
-amplify init
-Here, walk through the following steps:
 
-Enter a name for the project YOURPROJECTNAME
-Enter a name for the environment master
-Choose your default editor: Visual Studio Code (or your editor of choice)
-Choose the type of app that you're building javascript
-What javascript framework are you using react
-Source Directory Path: src
-Distribution Directory Path: public
-Build Command: npm run-script build
-Start Command: npm run-script develop
-Push the updated project configuration to AWS. It will deploy a CloudFormation template that has an Amazon Cognito resource that enables user authentication.
+2. Create a new AWS Amplify Project amplify init Here, walk through the following steps:
+
+Enter a name for the project: YOURPROJECTNAME
+Enter a name for the environment master 
+Choose your default editor: Visual Studio Code (or your editor of choice) 
+Choose the type of app that you're building: javascript 
+What javascript framework are you using: react 
+Source Directory Path: src 
+Distribution Directory Path: public 
+Build Command: npm run-script build 
+Start Command: npm run-script develop 
+Push the updated project configuration to AWS. Later(It will deploy a CloudFormation template that has an Amazon Cognito resource that enables user authentication.)
+
 amplify push
-
-
 
 
 
