@@ -26,67 +26,66 @@ app.get('/', async (req, res, next) => {
 // One function for adding Student or Teacher, select table using type, API: /add 
 app.post('/add', async (req, res) => {
 
-	const {
-	  username, password, firstname,
-	  lastname, location, type,
-	} = req.body;
+	try{
+		const {
+		  username, password, firstname,
+		  lastname, location, type,
+		} = req.body;
 
-	let tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE;
+		let tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE;
 
-	// const params = {
-	//     TableName: STUDENTS_TABLE,
-	//     Key: {
-	//         username: username,
-	//     },
-	// }
-	
-	// dynamoDb.get(params, (error, result) => {
-	//     if (result) {
-	//         // if found
-	//         res.json({ "error": true, "message": `username already exists: ${username}` });
-
-	//     }
-	// });
-	// return;
-
-	let data = await dynamoDb.transactWrite({
-	  TransactItems: [
-		{
-			Put: {
-				TableName: tableName,
-				// Is it possible to set userName primary key?
-				// Key: { id: { S: username } },
-				Item: {
-				  "username": username,
-				  "firstname": firstname,
-				  "lastname": lastname,
-				  "location": location,
-				  "type": type,
-				},
-			},
-		},
-		{
-			Put: {
-				TableName: AUTH_TABLE,
-				// Key: { id: { S: username } },
-				Item: {
-				  "username": username,
-				  "password": password, // passwordHash.generate(password),
-				  "type": type,
-				}
-			}
-		},
-	  ]
-	}).promise().then(
-		function(data) {
-			/* process the data */
-			return res.status(200).json({ "error": false, "message": "User added successfully"})
-		},
-		function(error) {
-		  	/* handle the error */
-		  	return res.status(500).json({ "error": true, "message": err.message})
+		const params = {
+		    TableName: tableName,
+		    Key: {
+		        username: username,
+		    },
 		}
-	);
+		
+		dynamoDb.get(params, async (error, result) => {
+			console.log(result)
+		    if (result.Item.username === username) {
+		        // if found
+		        return res.status(200).json({ "error": true, "message": `username already exists: ${username}` });
+
+		    }
+
+			let data = await dynamoDb.transactWrite({
+			  TransactItems: [
+				{
+					Put: {
+						TableName: tableName,
+						// Is it possible to set userName primary key?
+						// Key: { id: { S: username } },
+						Item: {
+						  "username": username,
+						  "firstname": firstname,
+						  "lastname": lastname,
+						  "location": location,
+						  "type": type,
+						},
+					},
+				},
+				{
+					Put: {
+						TableName: AUTH_TABLE,
+						// Key: { id: { S: username } },
+						Item: {
+						  "username": username,
+						  "password": password, // passwordHash.generate(password),
+						  "type": type,
+						}
+					}
+				},
+			  ]
+			}).promise()
+
+		});
+
+	} catch (err){
+		console.log(err)
+	  	return res.status(400).json({"error": err})
+	}
+	
 
 });
 
