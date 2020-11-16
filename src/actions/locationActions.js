@@ -2,7 +2,7 @@ import { FETCH_LOCATION } from './types';
 
 
 export  const findTeachers = inputData => dispatch => {
-  fetch('http://localhost:3000/getTeacher/' + inputData, {
+  fetch('https://7yqu7y8fs3.execute-api.us-east-1.amazonaws.com/dev/getTutor/' + inputData, {
     method: 'GET'
   })
     .then(res => res.json())
@@ -18,7 +18,7 @@ export  const findTeachers = inputData => dispatch => {
 
 
 export  const findStudents = inputData => dispatch => {
-  fetch('http://localhost:3000/getStudent/' + inputData, {
+  fetch('https://7yqu7y8fs3.execute-api.us-east-1.amazonaws.com/dev/getStudent/' + inputData, {
     method: 'GET'
   })
     .then(res => res.json())

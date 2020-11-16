@@ -13,7 +13,8 @@ import '../Css/Home.css';
         this.state = {
             username:'',
             password:'',
-            type:'0'
+            type:'0',
+            type_string:''
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -31,22 +32,23 @@ import '../Css/Home.css';
     else if (type[1].checked == true){type = type[1].value;}
     else{type = 0;}
     this.state.type = type;
+    if(type == 0){this.state.type_string = 'tutor'}
+    else{this.state.type_string = 'student'}
     const user = {
         username: this.state.username,
         password: this.state.password,
-        type: this.state.type
+        type: this.state.type_string
     };
-     this.props.logIn(user);
+    this.props.logIn(user);
 
     }
 
-    render() {
+    render(){
 
         var arr = Object.values(this.props.user);
-        console.log(arr);
         if(arr.length>0){
-            if(arr[0].auth == 'true'){
-                if(arr[0].type == '1'){
+            if(arr[0] === true){
+                if(arr[5] === 'student'){
                     
                     return(
                         <div><Student/></div>
@@ -54,14 +56,15 @@ import '../Css/Home.css';
                 }
                 else{
                     return(
-                        <div><Teacher/></div>
+                        <div><Teacher/></div> 
                     )
                 }
 
             }
-            else{
+
+            else if(arr[0] === false){
                 this.props.reset();
-                  alert("Please enter a valid username or password");
+                alert("Please enter a valid username or password");
             }
            
         }

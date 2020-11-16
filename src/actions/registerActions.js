@@ -2,7 +2,7 @@ import { FETCH_STUDENT } from './types';
 
 
 export  const registerStudent = inputData => dispatch => {
-  fetch('http://localhost:3000/addStudent', {
+  fetch('https://7yqu7y8fs3.execute-api.us-east-1.amazonaws.com/dev/add', {
     method: 'POST',
     headers: {
       'content-type': 'application/json',

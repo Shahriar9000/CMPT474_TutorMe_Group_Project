@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom';
             password:'',
             fname:'',
             lname:'',
-            address:''
+            address:'',
+            type:''
         };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -30,13 +31,6 @@ import { Link } from 'react-router-dom';
     }
     var address = location[index].value;
     this.state.address = address;
-    const user = {
-        username: this.state.username,
-        password: this.state.password,
-        fname: this.state.fname,
-        lname: this.state.lname,
-        address: this.state.address
-    };
     var type = document.getElementsByClassName("type");
     var index = 0;
     while(index<type.length){
@@ -45,10 +39,18 @@ import { Link } from 'react-router-dom';
     }
     var type = type[index].value;
 
-    if(type == '1'){this.props.registerStudent(user);}
-    if(type == '2'){this.props.registerTeacher(user);}
+    if(type == '1'){ this.state.type = 'student';}
+    if(type == '2'){this.state.type = 'tutor';}
+    const user = {
+        username: this.state.username,
+        password: this.state.password,
+        firstname: this.state.fname,
+        lastname: this.state.lname,
+        location: this.state.address,
+        type: this.state.type
+    };
+    this.props.registerStudent(user);
     alert("Succesfully Registered");
-    
     }
     render() {
         return (

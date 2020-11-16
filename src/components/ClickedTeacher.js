@@ -31,9 +31,9 @@ import { resetClickedTeacher } from '../actions/teacherClickedActions';
                     <div id="btnGoHomeDiv"><button id='btnGoHome'onClick={this.gohome}>Go home</button></div>
                     <div id='details'>
                     <h1 id='header'>Teacher details</h1>
-                        <p>First Name: {arr[0].fname}</p>
-                        <p>Last Name: {arr[0].lname}</p>
-                        <p>Location: {arr[0].address}</p>
+                        <p>First Name: {arr[0].firstname}</p>
+                        <p>Last Name: {arr[0].lastname}</p>
+                        <p>Location: {arr[0].location}</p>
                     </div>
                 </div>
                 

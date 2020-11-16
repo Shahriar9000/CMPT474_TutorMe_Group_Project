@@ -13,8 +13,7 @@ teacherClicked(e) {
   this.props.findTeacherClicked(e.target.name);
 }
   componentDidMount(){
-    var arr1 = Object.values(this.props.user);
-    this.props.findTeachers(arr1[0].address);
+    this.props.findTeachers(this.props.user.location);
   }
 
 
@@ -22,6 +21,8 @@ teacherClicked(e) {
       var t = Object.values(this.props.teacher);
       var arr = Object.values(this.props.users);
       console.log(arr);
+      var currentUser = this.props.user;
+      const welcome = currentUser.firstname + " " + currentUser.lastname;
        if(t.length > 0){
           return(<div>
             <ClickedTeacher/>
@@ -30,13 +31,11 @@ teacherClicked(e) {
         if(arr.length > 0){
             const postItems = arr.map(post => (
                   <tr key ={post.username}>
-                    <th>{post.fname}</th>
-                    <th>{post.lname}</th>
+                    <th>{post.firstname}</th>
+                    <th>{post.lastname}</th>
                     <th><button id ="btnDetails" name = {post.username} onClick ={this.teacherClicked}>Details</button></th>
                   </tr>
               ));
-              var currentUser = Object.values(this.props.user);
-              const welcome = currentUser[0].fname + " " + currentUser[0].lname;
               
             return (
                 <div>
@@ -61,6 +60,7 @@ teacherClicked(e) {
 
         return (
             <div>
+              <h1 id ='userheader'>Hello {welcome}</h1>
                <h1>I am a student</h1>
             </div>
         )
