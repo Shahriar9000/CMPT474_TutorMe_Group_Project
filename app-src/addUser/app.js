@@ -21,81 +21,67 @@ const passwordHash = require('password-hash');
 // One function for adding Student or Teacher, select table using type, API: /add 
 app.post('/add', async (req, res) => {
 
-    // try {
-        const {
-          username, password, firstname,
-          lastname, location, type,
-        } = req.body;
+  try{
+    const {
+      username, password, firstname,
+      lastname, location, type,
+    } = req.body;
 
-        let tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE;
+    let tableName = type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE;
 
-        // const params = {
-        //     TableName: tableName,
-        //     Key: {
-        //         username: username,
-        //     },
-        // }
-        
-        // let addUser = true;
-        // dynamoDb.get(params, (error, result) => {
-        //     if (Object.keys(result).length !== 0) {
-        //       // if found
-        //       return res.json({ "error": true, "message": `username already exists: ${username}` });
-        //       console.log("return does not work 1")
-        //       addUser = false;
-        //       // return;
-        //     }
-        // });
-        // console.log("return does not work 2")
+    const params = {
+        TableName: tableName,
+        Key: {
+            username: username,
+        },
+    }
+    
+    dynamoDb.get(params, async (error, result) => {
+      console.log(result)
+        if (result.Item.username === username) {
+            // if found
+            return res.status(200).json({ "error": true, "message": `username already exists: ${username}` });
 
-        // if (addUser){
-          let data = await dynamoDb.transactWrite({
-            TransactItems: [
-              {
-                Put: {
-                    TableName: tableName,
-                    // Is it possible to set userName primary key?
-                    // Key: { id: { S: username } },
-                    Item: {
-                      "username": username,
-                      "firstname": firstname,
-                      "lastname": lastname,
-                      "location": location,
-                      "type": type,
-                    },
-                },
-              },
-              {
-                  Put: {
-                      TableName: AUTH_TABLE,
-                      // Key: { id: { S: username } },
-                      Item: {
-                        "username": username,
-                        "password": passwordHash.generate(password),
-                        "type": type,
-                      }
-                  }
-              },
-            ]
-          }).promise().then(
-              function(data) {
-              /* process the data */
-              return res.status(200).json({ "error": false, "message": "User added successfully"})
+        }
+
+      let data = await dynamoDb.transactWrite({
+        TransactItems: [
+        {
+          Put: {
+            TableName: tableName,
+            // Is it possible to set userName primary key?
+            // Key: { id: { S: username } },
+            Item: {
+              "username": username,
+              "firstname": firstname,
+              "lastname": lastname,
+              "location": location,
+              "type": type,
             },
-            function(error) {
-              /* handle the error */
-              return res.status(500).json({ "error": true, "message": err.message})
+          },
+        },
+        {
+          Put: {
+            TableName: AUTH_TABLE,
+            // Key: { id: { S: username } },
+            Item: {
+              "username": username,
+              "password": password, // passwordHash.generate(password),
+              "type": type,
             }
-          );
-          
-        // }
+          }
+        },
+        ]
+      }).promise()
 
-    
-    // } catch(err) {
-    //     console.log(err);
-    //     return res.status(500).json({ "error": true, "message": err.message})
-    // }
-    
+    });
+
+  } catch (err){
+    console.log(err)
+      return res.status(400).json({"error": err})
+  }
+  
+
 });
 
 module.exports.addUser = sls(app)
