@@ -43,7 +43,7 @@ app.post('/add', async (req, res) => {
 		
 		dynamoDb.get(params, async (error, result) => {
 			console.log(result)
-		    if (result.Item.username === username) {
+		    if (result && result.Item && result.Item.username === username) {
 		        // if found
 		        return res.status(200).json({ "error": true, "message": `username already exists: ${username}` });
 
@@ -77,7 +77,16 @@ app.post('/add', async (req, res) => {
 					}
 				},
 			  ]
-			}).promise()
+			}).promise().then(
+				function(data) {
+					/* process the data */
+					return res.status(200).json({ "error": false, "message": "User added successfully"})
+				},
+				function(error) {
+					  /* handle the error */
+					  return res.status(500).json({ "error": true, "message": err.message})
+				}
+			);
 
 		});
 
