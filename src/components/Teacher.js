@@ -57,7 +57,7 @@ studentClicked(e) {
                 <h1 id ='userheader'>Hello {welcome}</h1>
                 <div id="btnGoHomeDiv"><button id='Log out'onClick={this.gohome}>Log out</button></div>
                 <br></br>
-                <h2 id ='usernheader'>Nearby Teachers</h2>
+                <h2 id ='usernheader'>Nearby Students</h2>
                 <table id ="table">
                   <thead>
                     <tr>
