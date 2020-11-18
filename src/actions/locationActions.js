@@ -2,6 +2,7 @@ import { FETCH_LOCATION } from './types';
 
 
 export  const findTeachers = inputData => dispatch => {
+
   fetch('https://kzas28fxv0.execute-api.us-east-1.amazonaws.com/dev/getTutor/' + inputData, {
     method: 'GET'
   })
@@ -18,7 +19,9 @@ export  const findTeachers = inputData => dispatch => {
 
 
 export  const findStudents = inputData => dispatch => {
+
   fetch('https://kzas28fxv0.execute-api.us-east-1.amazonaws.com/dev/getStudent/' + inputData, {
+
     method: 'GET'
   })
     .then(res => res.json())
