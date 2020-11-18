@@ -46,7 +46,8 @@ import '../Css/Home.css';
     render(){
 
         var arr = Object.values(this.props.user);
-        if(arr.length>0){
+        console.log(arr[0]);
+        if(arr.length>3){
             if(arr[0] === true){
                 if(arr[5] === 'student'){
                     
@@ -67,6 +68,10 @@ import '../Css/Home.css';
                 alert("Please enter a valid username or password");
             }
            
+        }
+        if(arr.length === 1){
+            this.props.reset();
+            alert("Please enter a valid username or password");
         }
         return (
             <div id ='mainbody'>
