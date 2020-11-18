@@ -100,39 +100,47 @@ app.post('/add', async (req, res) => {
 
 
 app.post('/auth', async (req, res, next) => {
-	const { username, password, type } = req.body;
-	console.log(`${username}, ${password}, ${type}`)
-	const params = {
-		TableName: AUTH_TABLE,
-		Key: {
-			username: username,
-		},
-	}
-	dynamoDb.get(params, (error, result) => {
-		if (error) {
-			console.log(error);
-			res.status(400).json({ error: `Username not found` });
+	try{
+		const { username, password, type } = req.body;
+		console.log(`${username}, ${password}, ${type}`)
+		if(!username || !password) {
+			res.status(404).json({ error: `Username or password cannot be empty`});
 		}
-		console.log(result);
-		if (result && result.Item.password === password) {
-            let response = {};
-            const params = {
-                TableName: result.Item.type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE,
-                Key: {
-                    username: username,
-                },
-            }
-            dynamoDb.get(params, (error, result) => {
-                if (result) {
-                    response = result.Item;
-                    res.status(200).json({ auth: true, ...response });
-                }
-            })
-		} else {
-			res.status(404).json({ error: `Username and password does not match` });
+		const params = {
+			TableName: AUTH_TABLE,
+			Key: {
+				username: username,
+			},
+		}
+		dynamoDb.get(params, (error, result) => {
+			if (error) {
+				console.log(error);
+				res.status(400).json({ error: `Username not found` });
+			}
+			console.log(result);
+			if (Object.keys(result).length !== 0 && result.Item && 
+				result.Item.password === password && result.Item.type === type) {
+				let response = {};
+				const params = {
+					TableName: result.Item.type === 'student' ? STUDENTS_TABLE : TUTORS_TABLE,
+					Key: {
+						username: username,
+					},
+				}
+				dynamoDb.get(params, (error, result) => {
+					if (result) {
+						response = result.Item;
+						res.status(200).json({ auth: true, ...response });
+					}
+				})
+			} else {
+				res.status(404).json({ error: `Username and password does not match` });
 
-		}
-	});
+			}
+		});
+	} catch(err) {
+		res.status(404).json({ error: `Username and password does not match` });
+	}
 });
 
 app.get('/getStudent/:location', (req, res) => {

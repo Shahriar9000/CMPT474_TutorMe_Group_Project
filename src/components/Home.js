@@ -30,23 +30,32 @@ import '../Css/Home.css';
     var type = document.getElementsByClassName("myradio");
     if(type[0].checked == true){type = type[0].value;}
     else if (type[1].checked == true){type = type[1].value;}
-    else{type = 0;}
+    else{alert("Please choose the type");}
     this.state.type = type;
-    if(type == 0){this.state.type_string = 'tutor'}
-    else{this.state.type_string = 'student'}
-    const user = {
-        username: this.state.username,
-        password: this.state.password,
-        type: this.state.type_string
-    };
-    this.props.logIn(user);
+    if(type == 1){this.state.type_string = 'student'}
+    else{this.state.type_string = 'tutor'}
+    console.log(type);
+
+    if(this.state.username == "" || this.state.password == ""){
+        alert("Please enter valid username or password");
+    }
+    else if(type == 1 || type == 2){
+        const user = {
+            username: this.state.username,
+            password: this.state.password,
+            type: this.state.type_string
+        };
+        console.log(user);
+        this.props.logIn(user);
+    }
 
     }
 
     render(){
 
         var arr = Object.values(this.props.user);
-        if(arr.length>0){
+        console.log(arr[0]);
+        if(arr.length>3){
             if(arr[0] === true){
                 if(arr[5] === 'student'){
                     
@@ -67,6 +76,10 @@ import '../Css/Home.css';
                 alert("Please enter a valid username or password");
             }
            
+        }
+        if(arr.length === 1){
+            this.props.reset();
+            alert("Please enter a valid username or password");
         }
         return (
             <div id ='mainbody'>
