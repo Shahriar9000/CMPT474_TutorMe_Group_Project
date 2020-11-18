@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { findStudents } from '../actions/locationActions';
+import Student from './Student';
 import { findStudentClicked } from '../actions/teacherClickedActions';
 import ClickedStudent from './ClickedStudent';
+import { reset } from '../actions/logInActions';
  class Teacher extends Component {
   constructor(props){
     super(props);
-    this.studentClicked = this.studentClicked.bind(this);  
+    this.studentClicked = this.studentClicked.bind(this); 
+    this.state={
+      gohome: false
+    };
+    this.gohome = this.gohome.bind(this);   
+}
+gohome(e) {
+  this.setState({ gohome: true });
 }
 studentClicked(e) {
   e.persist();
@@ -18,6 +27,13 @@ studentClicked(e) {
 
 
     render() {
+      if(this.state.gohome){
+        this.props.reset();
+        return(
+            <div><Student/></div>
+        )
+      }
+
       var t = Object.values(this.props.student);
       var arr = Object.values(this.props.users);
        if(t.length > 0){
@@ -39,6 +55,7 @@ studentClicked(e) {
               return (
                 <div>
                 <h1 id ='userheader'>Hello {welcome}</h1>
+                <div id="btnGoHomeDiv"><button id='Log out'onClick={this.gohome}>Log out</button></div>
                 <br></br>
                 <h2 id ='usernheader'>Nearby Teachers</h2>
                 <table id ="table">
@@ -72,4 +89,4 @@ const mapStateToProps = state => ({
   });
   
 
-export default connect(mapStateToProps, { findStudents,findStudentClicked })(Teacher);
+export default connect(mapStateToProps, { findStudents,findStudentClicked,reset })(Teacher);
