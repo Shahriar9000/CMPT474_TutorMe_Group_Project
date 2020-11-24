@@ -54,6 +54,7 @@ import '../Css/Home.css';
     render(){
 
         var arr = Object.values(this.props.user);
+        console.log(this.props.user);
         console.log(arr[0]);
         if(arr.length>3){
             if(arr[0] === true){
