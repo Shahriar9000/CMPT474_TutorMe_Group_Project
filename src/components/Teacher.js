@@ -37,6 +37,7 @@ studentClicked(e) {
 
     render() {
       if(this.state.gohome){
+        this.state.gohome = false;
         this.props.reset();
         return(
             <div><Home/></div>
