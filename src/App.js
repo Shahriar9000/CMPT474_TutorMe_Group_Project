@@ -3,6 +3,7 @@ import './App.css';
 import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Student from './components/Student';
+import Teacher from './components/Teacher'
 import ClickedTeacher from './components/ClickedTeacher';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -24,6 +25,7 @@ function App() {
             />
 
           <Route path="/SignUp" component={SignUp} />
+          <Route path="/Teacher" component={Teacher} />
           <Route path="/Student"             render={props => (
                   <React.Fragment>
                     <Student/>

@@ -5,18 +5,27 @@ import Student from './Student';
 import { findStudentClicked } from '../actions/teacherClickedActions';
 import ClickedStudent from './ClickedStudent';
 import { reset } from '../actions/logInActions';
+import Home from './Home';
+import Appointment from './Appointment';
  class Teacher extends Component {
   constructor(props){
     super(props);
     this.studentClicked = this.studentClicked.bind(this); 
     this.state={
-      gohome: false
+      gohome: false,
+      book: false
     };
-    this.gohome = this.gohome.bind(this);   
+    this.gohome = this.gohome.bind(this);
+    this.Book = this.Book.bind(this);     
 }
 gohome(e) {
   this.setState({ gohome: true });
 }
+
+Book(e) {
+  this.setState({ book: true });
+}
+
 studentClicked(e) {
   e.persist();
   this.props.findStudentClicked(e.target.name);
@@ -30,7 +39,14 @@ studentClicked(e) {
       if(this.state.gohome){
         this.props.reset();
         return(
-            <div><Student/></div>
+            <div><Home/></div>
+        )
+      }
+
+      if(this.state.book){
+        this.state.book = false;
+        return(
+            <div><Appointment/></div>
         )
       }
 
@@ -56,6 +72,7 @@ studentClicked(e) {
                 <div>
                 <h1 id ='userheader'>Hello {welcome}</h1>
                 <div id="btnGoHomeDiv"><button id='Log out'onClick={this.gohome}>Log out</button></div>
+                <div id="Book"><button id='Book'onClick={this.Book}>Create Availability</button></div>
                 <br></br>
                 <h2 id ='usernheader'>Nearby Students</h2>
                 <table id ="table">

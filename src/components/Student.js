@@ -5,7 +5,8 @@ import { findTeacherClicked } from '../actions/teacherClickedActions';
 import ClickedTeacher from './ClickedTeacher';
 import Teacher from './Teacher';
 import { reset } from '../actions/logInActions';
- class Student extends Component {
+import Home from './Home';
+class Student extends Component {
   constructor(props){
     super(props);
     this.teacherClicked = this.teacherClicked.bind(this);
@@ -30,7 +31,7 @@ teacherClicked(e) {
       if(this.state.gohome){
         this.props.reset();
         return(
-            <div><Teacher/></div>
+            <div><Home/></div>
         )
       }
       var t = Object.values(this.props.teacher);
