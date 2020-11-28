@@ -37,7 +37,6 @@ studentClicked(e) {
 
     render() {
       if(this.state.gohome){
-        this.state.gohome = false;
         this.props.reset();
         return(
             <div><Home/></div>
@@ -45,7 +44,6 @@ studentClicked(e) {
       }
 
       if(this.state.book){
-        this.state.book = false;
         return(
             <div><Appointment/></div>
         )

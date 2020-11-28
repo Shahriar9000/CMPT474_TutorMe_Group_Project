@@ -45,7 +45,6 @@ import '../Css/Home.css';
             password: this.state.password,
             type: this.state.type_string
         };
-        console.log(user);
         this.props.logIn(user);
     }
 
@@ -54,8 +53,6 @@ import '../Css/Home.css';
     render(){
 
         var arr = Object.values(this.props.user);
-        console.log(this.props.user);
-        console.log(arr[0]);
         if(arr.length>3){
             if(arr[0] === true){
                 if(arr[5] === 'student'){
