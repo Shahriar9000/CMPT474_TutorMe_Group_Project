@@ -6,11 +6,12 @@ import {findAvailability } from '../actions/availabilityActions';
 import ClickedTeacher from './ClickedTeacher';
 import { reset } from '../actions/logInActions';
 import Home from './Home';
+import Availability from './Availability';
 class Student extends Component {
   constructor(props){
     super(props);
     this.state={
-      gohome: false
+      gohome: false,
   };
   this.gohome = this.gohome.bind(this);
   this.teacherClicked = this.teacherClicked.bind(this);
@@ -29,10 +30,8 @@ findAvailability(e) {
   const user = {
     username: e.target.name,
     type: 'tutor'
-};
-console.log(user);
+  };
   this.props.findAvailability(user);
-  console.log(this.props.availabilityList);
 }
 
 componentDidMount(){
@@ -42,14 +41,26 @@ componentDidMount(){
 
     render() {
       if(this.state.gohome){
+        this.state.gohome = false;
         this.props.reset();
         return(
             <div><Home/></div>
         )
       }
+      console.log(this.props.availabilityList);
+      if(this.props.availabilityList.status!=undefined){
+        if(this.props.availabilityList.error){
+          alert("Error "+this.props.availabilityList.data+" status "+this.props.availabilityList.status);
+        }
+        else{return(<div><Availability/></div>)}
+      }
+
+      if(this.props.availabilityList.status=='200'){
+        return(<div><Availability/></div>)
+      }
+
       var t = Object.values(this.props.teacher);
       var arr = Object.values(this.props.users);
-      console.log(arr);
       var currentUser = this.props.user;
       const welcome = currentUser.firstname + " " + currentUser.lastname;
        if(t.length > 0){
@@ -79,6 +90,7 @@ componentDidMount(){
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Find Details</th>
+                      <th>See Availability</th>
                     </tr>
                   </thead>
                   <tbody >
@@ -102,7 +114,7 @@ const mapStateToProps = state => ({
     user: state.user.item,
     users: state.locationUsers.items,
     teacher: state.teacherClicked.item,
-    availabilityList: state.availabilityList.items
+    availabilityList: state.availabilityList.item
   });
   
 

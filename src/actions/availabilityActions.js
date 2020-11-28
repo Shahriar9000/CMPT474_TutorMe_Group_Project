@@ -1,7 +1,7 @@
 import { FETCH_AVAILABILITY } from './types';
 
 
-  export  const  findAvailability = inputData =>  dispatch => {
+export  const  findAvailability = inputData =>  dispatch => {
     fetch('http://localhost:3000/getAvailability',{
     method: 'POST',
     headers: {
@@ -19,6 +19,7 @@ import { FETCH_AVAILABILITY } from './types';
     );
     
 };
+
 
 export  const  reset = inputData =>  dispatch => {
   dispatch({
