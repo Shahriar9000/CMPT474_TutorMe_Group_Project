@@ -3,8 +3,9 @@ custom:
   authTable: 'authentication-${self:provider.stage}'
   studentsTable: 'students-${self:provider.stage}'
   tutorsTable: 'tutors-${self:provider.stage}'
+  appointmentTable: 'appointment-${self:provider.stage}'
 provider:
-  name: aws 
+  name: aws
   runtime: nodejs12.x
   stage: dev
   region: us-east-1
@@ -22,6 +23,7 @@ provider:
     STUDENTS_TABLE: ${self:custom.studentsTable}
     AUTH_TABLE: ${self:custom.authTable}
     TUTORS_TABLE: ${self:custom.tutorsTable}
+    APPOINTMENT_TABLE: ${self:custom.appointmentTable}
 functions:
   app:
     handler: app.server
@@ -34,6 +36,7 @@ functions:
           path: /{proxy+}
           method: ANY
           cors: true
+
 resources:
   Resources:
     StudentsDynamoDBTable:
@@ -51,7 +54,7 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.studentsTable}
-    
+
     TutorsDynamoDBTable:
       Type: 'AWS::DynamoDB::Table'
       Properties:
@@ -83,3 +86,19 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.authTable}
+
+    AppointmentDynamoDBTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: username
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: username
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.appointmentTable}

@@ -1,20 +1,20 @@
 {
     "dev": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-amplifytutorme-dev-220739-authRole",
-            "UnauthRoleArn": "arn:aws:iam::888007199225:role/amplify-amplifytutorme-dev-220739-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::888007199225:role/amplify-amplifytutorme-dev-220739-authRole",
+            "AuthRoleName": "amplify-cmpt474tutormegroupp-dev-230359-authRole",
+            "UnauthRoleArn": "arn:aws:iam::450310072121:role/amplify-cmpt474tutormegroupp-dev-230359-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::450310072121:role/amplify-cmpt474tutormegroupp-dev-230359-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-amplifytutorme-dev-220739-deployment",
-            "UnauthRoleName": "amplify-amplifytutorme-dev-220739-unauthRole",
-            "StackName": "amplify-amplifytutorme-dev-220739",
-            "StackId": "arn:aws:cloudformation:us-east-1:888007199225:stack/amplify-amplifytutorme-dev-220739/5ea6cbf0-2964-11eb-be5b-0eac49185f5f",
-            "AmplifyAppId": "d3g2e469ajum5b"
+            "DeploymentBucketName": "amplify-cmpt474tutormegroupp-dev-230359-deployment",
+            "UnauthRoleName": "amplify-cmpt474tutormegroupp-dev-230359-unauthRole",
+            "StackName": "amplify-cmpt474tutormegroupp-dev-230359",
+            "StackId": "arn:aws:cloudformation:us-east-1:450310072121:stack/amplify-cmpt474tutormegroupp-dev-230359/3e6ab740-296c-11eb-a2c0-0ea933ce60ed",
+            "AmplifyAppId": "d2sge86bdnpfma"
         },
         "categories": {
             "hosting": {
                 "amplifyhosting": {
-                    "appId": "d3g2e469ajum5b",
+                    "appId": "d2sge86bdnpfma",
                     "type": "manual"
                 }
             }
