@@ -31,6 +31,7 @@ findAvailability(e) {
     username: e.target.name,
     type: 'tutor'
   };
+  console.log(user);
   this.props.findAvailability(user);
 }
 
@@ -47,16 +48,12 @@ componentDidMount(){
             <div><Home/></div>
         )
       }
-      console.log(this.props.availabilityList);
-      if(this.props.availabilityList.status!=undefined){
+      var arr = Object.values(this.props.availabilityList);
+      if(arr.length > 0){
         if(this.props.availabilityList.error){
           alert("Error "+this.props.availabilityList.data+" status "+this.props.availabilityList.status);
         }
         else{return(<div><Availability/></div>)}
-      }
-
-      if(this.props.availabilityList.status=='200'){
-        return(<div><Availability/></div>)
       }
 
       var t = Object.values(this.props.teacher);

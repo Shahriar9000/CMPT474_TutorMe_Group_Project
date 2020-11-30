@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import Student from './Student';
-import { reset } from '../actions/availabilityActions';
+import { reset, findAvailability } from '../actions/availabilityActions';
 
 class Availability extends Component {
   constructor(props){
@@ -11,15 +11,55 @@ class Availability extends Component {
     };
     this.gohome = this.gohome.bind(this);
     this.bookClicked = this.bookClicked.bind(this);
+    this.int_to_time = this.int_to_time.bind(this);
+}
+int_to_time(x){
+        var start = x;
+        var end = start+1;
+        var start_string = "";
+        var end_string = "";
+        if (start == 0){start_string = "12 am - ";}
+        else if (start == 12){start_string = "12 pm - ";}
+        else if (start < 12){start_string = (start%12).toString() + " am - ";}
+        else{start_string = (start%12).toString() + " pm - ";}
+            
+        if (end == 12){end_string = "12 pm";}
+        else if (end == 24){end_string = "12 am";}
+        else if (end < 12){end_string = (end%12).toString() + " am";}
+        else{end_string = (end%12).toString() + " pm";}
+
+        return (start_string+end_string) ;
 }
 gohome(e) {
   e.persist();
   this.setState({ gohome: true });
 }
-bookClicked(e){
-    e.persist();
-    console.log("please book");
+async bookClicked(e){
+    e.preventDefault();
+    var user = {
+        tutorid: this.props.availabilityList.tutorid,
+        studentid: this.props.user.username,
+        day: e.target.id,
+        hours: [parseInt(e.target.name)]
+    };
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+    };
+    let req;
+    await fetch('https://15iwsfpdy6.execute-api.us-east-1.amazonaws.com/dev/appointment/bookAvailability',requestOptions)
+        .then(response => response.json())
+        .then(data => req = data);
+    console.log(req);
+        user = {
+                username: this.props.availabilityList.tutorid,
+                type: 'tutor'
+                };
+        this.props.findAvailability(user);
 }
+
 render() {
     if(this.state.gohome){
         this.props.reset();
@@ -27,53 +67,100 @@ render() {
             <div><Student/></div>
         )
     }
+    console.log(this.int_to_time(3));
+    var mon = Object.values(this.props.availabilityList.data.mon);
+    const monday = mon.map(day => {
+            var time = this.int_to_time(day);
+            var result = (<ul>
+            <li>{time}</li>
+            <li><button id ="mon" name = {day} onClick ={this.bookClicked}>Book</button></li>
+            </ul>)
+            return result;
+    });
 
-    var arr = Object.values(this.props.availabilityList.data);
-    if(arr.length > 0){
-        const postItems = arr.map(post => (
-                <tr key ={post.id}>
-                <th>{post.year}</th>
-                <th>{post.month}</th>
-                <th>{post.date}</th>
-                <th>{post.date_word}</th>
-                <th>{post.from_hour}</th>
-                <th>{post.from_minute}</th>
-                <th>{post.to_hour}</th>
-                <th>{post.to_minute}</th>
-                <th><button id ="Book" name = {this.props.user.username} onClick ={this.bookClicked}>Book</button></th>
-                </tr>
-            ));
-            
-            return (
-            <div>
-            <div id="btnGoHomeDiv"><button id='Log out'onClick={this.gohome}>Go home</button></div>
-            <br></br>
-            <h2 id ='usernheader'>Availability</h2>
-            <table id ="table">
-                <thead>
-                <tr>
-                    <th>Year</th>
-                    <th>Month</th>
-                    <th>Day</th>
-                    <th>Date</th>
-                    <th>From Hour</th>
-                    <th>From Minute</th>
-                    <th>To Hour</th>
-                    <th>To Minute</th>
-                    <th>Click to Book</th>
-                </tr>
-                </thead>
-                <tbody >
-                    {postItems}
-                </tbody>
-            </table>
-            </div>
-        )
-    }
+    var tue = Object.values(this.props.availabilityList.data.tue);
+    const tuesday = tue.map(day =>{
+        var time = this.int_to_time(day);
+        var result = (<ul>
+        <li>{time}</li>
+        <li><button id ="tue" name = {day} onClick ={this.bookClicked}>Book</button></li>
+        </ul>)
+        return result;
+    });
+
+    var wed = Object.values(this.props.availabilityList.data.wed);
+    const wednesday = wed.map(day => {
+        var time = this.int_to_time(day);
+        var result = (<ul>
+        <li>{time}</li>
+        <li><button id ="wed" name = {day} onClick ={this.bookClicked}>Book</button></li>
+        </ul>)
+        return result;
+    });
+
+    var thu = Object.values(this.props.availabilityList.data.thu);
+    const thursday = thu.map(day => {
+        var time = this.int_to_time(day);
+        var result = (<ul>
+        <li>{time}</li>
+        <li><button id ="thu" name = {day} onClick ={this.bookClicked}>Book</button></li>
+        </ul>)
+        return result;
+   });
+
+    var fri = Object.values(this.props.availabilityList.data.fri);
+    const friday = fri.map(day => {
+        var time = this.int_to_time(day);
+        var result = (<ul>
+        <li>{time}</li>
+        <li><button id ="fri" name = {day} onClick ={this.bookClicked}>Book</button></li>
+        </ul>)
+        return result;
+    });
+
+    var sat = Object.values(this.props.availabilityList.data.sat);
+    const saturday = sat.map(day => {
+        var time = this.int_to_time(day);
+        var result = (<ul>
+        <li>{time}</li>
+        <li><button id ="sat" name = {day} onClick ={this.bookClicked}>Book</button></li>
+        </ul>)
+        return result;
+    });
+    var sun = Object.values(this.props.availabilityList.data.sun);
+    const sunday = sun.map(day => {
+        var time = this.int_to_time(day);
+        var result = (<ul>
+        <li>{time}</li>
+        <li><button id ="sun" name = {day} onClick ={this.bookClicked}>Book</button></li>
+        </ul>)
+        return result;
+    });
     return (
         <div>
-            <h1>This teacher is not available at this moment</h1>
-            <div id="btnGoHomeDiv"><button id='Log out'onClick={this.gohome}>Go home</button></div>
+        <div id="btnGoHomeDiv"><button id='Log out'onClick={this.gohome}>Go home</button></div>
+        <br></br>
+        <h2 id ='usernheader'>Availability</h2>
+        <h3 id ='usernheader'>Monday</h3>
+        {monday}
+
+        <h3 id ='usernheader'>Tuesday</h3>
+        {tuesday}
+
+        <h3 id ='usernheader'>Wednesday</h3>
+        {wednesday}
+
+        <h3 id ='usernheader'>Thursday</h3>
+        {thursday}
+
+        <h3 id ='usernheader'>Friday</h3>
+        {friday}
+
+        <h3 id ='usernheader'>Saturday</h3>
+        {saturday}
+
+        <h3 id ='usernheader'>Sunday</h3>
+        {sunday}
         </div>
     )
  }
@@ -85,4 +172,4 @@ const mapStateToProps = state => ({
   });
   
 
-export default connect(mapStateToProps,{reset})(Availability);
+export default connect(mapStateToProps,{reset,findAvailability})(Availability);

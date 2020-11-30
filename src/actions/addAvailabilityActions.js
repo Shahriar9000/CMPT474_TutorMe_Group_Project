@@ -2,7 +2,7 @@ import { FETCH_ADD_AVAILABILITY } from './types';
 
 
 export  const  addAvailability = inputData =>  dispatch => {
-  fetch('http://localhost:3000/addAvailability',{
+  fetch('https://15iwsfpdy6.execute-api.us-east-1.amazonaws.com/dev/appointment/setAvailability',{
   method: 'POST',
   headers: {
     'content-type': 'application/json',
