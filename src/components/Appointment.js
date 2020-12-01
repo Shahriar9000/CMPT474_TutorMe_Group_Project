@@ -158,202 +158,128 @@ import '../Css/Appoinment.css';
             <div id ='mainbody'>
                 <div id="btnGoHomeDiv"><button id='Log out'onClick={this.gohome}>Go home</button></div>
                 <div id="list1" class="dropdown-check-list" tabindex="100">
-                    <span class="anchor">Monday</span>
-                    <ul class="items">
-                        <li><input type="checkbox" value = "0"  onChange={this.handleMonday}/>12 am</li>
-                        <li><input type="checkbox" value = "1"  onChange={this.handleMonday}/>1 am</li>
-                        <li><input type="checkbox" value = "2"  onChange={this.handleMonday}/>2 am </li>
-                        <li><input type="checkbox" value = "3"  onChange={this.handleMonday}/>3 am </li>
-                        <li><input type="checkbox" value = "4"  onChange={this.handleMonday}/>4 am </li>
-                        <li><input type="checkbox" value = "5"  onChange={this.handleMonday}/>5 am </li>
-                        <li><input type="checkbox" value = "6"  onChange={this.handleMonday}/>6 am </li>
-                        <li><input type="checkbox" value = "7"  onChange={this.handleMonday}/>7 am </li>
-                        <li><input type="checkbox" value = "8"  onChange={this.handleMonday}/>8 am </li>
-                        <li><input type="checkbox" value = "9" onChange={this.handleMonday}/>9 am </li>
-                        <li><input type="checkbox" value = "10" onChange={this.handleMonday}/>10 am </li>
-                        <li><input type="checkbox" value = "11" onChange={this.handleMonday}/>11 am </li>
-                        <li><input type="checkbox" value = "12" onChange={this.handleMonday}/>12 pm </li>
-                        <li><input type="checkbox" value = "13" onChange={this.handleMonday}/>1 pm </li>
-                        <li><input type="checkbox" value = "14" onChange={this.handleMonday}/>2 pm </li>
-                        <li><input type="checkbox" value = "15" onChange={this.handleMonday}/>3 pm </li>
-                        <li><input type="checkbox" value = "16" onChange={this.handleMonday}/>4 pm </li>
-                        <li><input type="checkbox" value = "17" onChange={this.handleMonday}/>5 pm </li>
-                        <li><input type="checkbox" value = "18" onChange={this.handleMonday}/>6 pm </li>
-                        <li><input type="checkbox" value = "19" onChange={this.handleMonday}/>7 pm </li>
-                        <li><input type="checkbox" value = "20" onChange={this.handleMonday}/>8 pm </li>
-                        <li><input type="checkbox" value = "21" onChange={this.handleMonday}/>9 pm </li>
-                        <li><input type="checkbox" value = "22" onChange={this.handleMonday}/>10 pm </li>
-                        <li><input type="checkbox" value = "23" onChange={this.handleMonday}/>11 pm </li>
-                    </ul>
-
-
-                    <span class="anchor">Tuesday</span>
-                    <ul class="items">
-                        <li><input type="checkbox" value = "0"  onChange={this.handleTuesday}/>12 am</li>
-                        <li><input type="checkbox" value = "1"  onChange={this.handleTuesday}/>1 am</li>
-                        <li><input type="checkbox" value = "2"  onChange={this.handleTuesday}/>2 am </li>
-                        <li><input type="checkbox" value = "3"  onChange={this.handleTuesday}/>3 am </li>
-                        <li><input type="checkbox" value = "4"  onChange={this.handleTuesday}/>4 am </li>
-                        <li><input type="checkbox" value = "5"  onChange={this.handleTuesday}/>5 am </li>
-                        <li><input type="checkbox" value = "6"  onChange={this.handleTuesday}/>6 am </li>
-                        <li><input type="checkbox" value = "7"  onChange={this.handleTuesday}/>7 am </li>
-                        <li><input type="checkbox" value = "8"  onChange={this.handleTuesday}/>8 am </li>
-                        <li><input type="checkbox" value = "9" onChange={this.handleTuesday}/>9 am </li>
-                        <li><input type="checkbox" value = "10" onChange={this.handleTuesday}/>10 am </li>
-                        <li><input type="checkbox" value = "11" onChange={this.handleTuesday}/>11 am </li>
-                        <li><input type="checkbox" value = "12" onChange={this.handleTuesday}/>12 pm </li>
-                        <li><input type="checkbox" value = "13" onChange={this.handleTuesday}/>1 pm </li>
-                        <li><input type="checkbox" value = "14" onChange={this.handleTuesday}/>2 pm </li>
-                        <li><input type="checkbox" value = "15" onChange={this.handleTuesday}/>3 pm </li>
-                        <li><input type="checkbox" value = "16" onChange={this.handleTuesday}/>4 pm </li>
-                        <li><input type="checkbox" value = "17" onChange={this.handleTuesday}/>5 pm </li>
-                        <li><input type="checkbox" value = "18" onChange={this.handleTuesday}/>6 pm </li>
-                        <li><input type="checkbox" value = "19" onChange={this.handleTuesday}/>7 pm </li>
-                        <li><input type="checkbox" value = "20" onChange={this.handleTuesday}/>8 pm </li>
-                        <li><input type="checkbox" value = "21" onChange={this.handleTuesday}/>9 pm </li>
-                        <li><input type="checkbox" value = "22" onChange={this.handleTuesday}/>10 pm </li>
-                        <li><input type="checkbox" value = "23" onChange={this.handleTuesday}/>11 pm </li>
-                    </ul>
-
-                    <span class="anchor">Wednesday</span>
-                    <ul class="items">
-                        <li><input type="checkbox" value = "0"  onChange={this.handleWednesday}/>12 am</li>
-                        <li><input type="checkbox" value = "1"  onChange={this.handleWednesday}/>1 am</li>
-                        <li><input type="checkbox" value = "2"  onChange={this.handleWednesday}/>2 am </li>
-                        <li><input type="checkbox" value = "3"  onChange={this.handleWednesday}/>3 am </li>
-                        <li><input type="checkbox" value = "4"  onChange={this.handleWednesday}/>4 am </li>
-                        <li><input type="checkbox" value = "5"  onChange={this.handleWednesday}/>5 am </li>
-                        <li><input type="checkbox" value = "6"  onChange={this.handleWednesday}/>6 am </li>
-                        <li><input type="checkbox" value = "7"  onChange={this.handleWednesday}/>7 am </li>
-                        <li><input type="checkbox" value = "8"  onChange={this.handleWednesday}/>8 am </li>
-                        <li><input type="checkbox" value = "9" onChange={this.handleWednesday}/>9 am </li>
-                        <li><input type="checkbox" value = "10" onChange={this.handleWednesday}/>10 am </li>
-                        <li><input type="checkbox" value = "11" onChange={this.handleWednesday}/>11 am </li>
-                        <li><input type="checkbox" value = "12" onChange={this.handleWednesday}/>12 pm </li>
-                        <li><input type="checkbox" value = "13" onChange={this.handleWednesday}/>1 pm </li>
-                        <li><input type="checkbox" value = "14" onChange={this.handleWednesday}/>2 pm </li>
-                        <li><input type="checkbox" value = "15" onChange={this.handleWednesday}/>3 pm </li>
-                        <li><input type="checkbox" value = "16" onChange={this.handleWednesday}/>4 pm </li>
-                        <li><input type="checkbox" value = "17" onChange={this.handleWednesday}/>5 pm </li>
-                        <li><input type="checkbox" value = "18" onChange={this.handleWednesday}/>6 pm </li>
-                        <li><input type="checkbox" value = "19" onChange={this.handleWednesday}/>7 pm </li>
-                        <li><input type="checkbox" value = "20" onChange={this.handleWednesday}/>8 pm </li>
-                        <li><input type="checkbox" value = "21" onChange={this.handleWednesday}/>9 pm </li>
-                        <li><input type="checkbox" value = "22" onChange={this.handleWednesday}/>10 pm </li>
-                        <li><input type="checkbox" value = "23" onChange={this.handleWednesday}/>11 pm </li>
-                    </ul>
-
-                    <span class="anchor">Thursday</span>
-                    <ul class="items">
-                        <li><input type="checkbox" value = "0"  onChange={this.handleThursday}/>12 am</li>
-                        <li><input type="checkbox" value = "1"  onChange={this.handleThursday}/>1 am</li>
-                        <li><input type="checkbox" value = "2"  onChange={this.handleThursday}/>2 am </li>
-                        <li><input type="checkbox" value = "3"  onChange={this.handleThursday}/>3 am </li>
-                        <li><input type="checkbox" value = "4"  onChange={this.handleThursday}/>4 am </li>
-                        <li><input type="checkbox" value = "5"  onChange={this.handleThursday}/>5 am </li>
-                        <li><input type="checkbox" value = "6"  onChange={this.handleThursday}/>6 am </li>
-                        <li><input type="checkbox" value = "7"  onChange={this.handleThursday}/>7 am </li>
-                        <li><input type="checkbox" value = "8"  onChange={this.handleThursday}/>8 am </li>
-                        <li><input type="checkbox" value = "9" onChange={this.handleThursday}/>9 am </li>
-                        <li><input type="checkbox" value = "10" onChange={this.handleThursday}/>10 am </li>
-                        <li><input type="checkbox" value = "11" onChange={this.handleThursday}/>11 am </li>
-                        <li><input type="checkbox" value = "12" onChange={this.handleThursday}/>12 pm </li>
-                        <li><input type="checkbox" value = "13" onChange={this.handleThursday}/>1 pm </li>
-                        <li><input type="checkbox" value = "14" onChange={this.handleThursday}/>2 pm </li>
-                        <li><input type="checkbox" value = "15" onChange={this.handleThursday}/>3 pm </li>
-                        <li><input type="checkbox" value = "16" onChange={this.handleThursday}/>4 pm </li>
-                        <li><input type="checkbox" value = "17" onChange={this.handleThursday}/>5 pm </li>
-                        <li><input type="checkbox" value = "18" onChange={this.handleThursday}/>6 pm </li>
-                        <li><input type="checkbox" value = "19" onChange={this.handleThursday}/>7 pm </li>
-                        <li><input type="checkbox" value = "20" onChange={this.handleThursday}/>8 pm </li>
-                        <li><input type="checkbox" value = "21" onChange={this.handleThursday}/>9 pm </li>
-                        <li><input type="checkbox" value = "22" onChange={this.handleThursday}/>10 pm </li>
-                        <li><input type="checkbox" value = "23" onChange={this.handleThursday}/>11 pm </li>
-                    </ul>
-
-                    <span class="anchor">Friday</span>
-                    <ul class="items">
-                        <li><input type="checkbox" value = "0"  onChange={this.handleFriday}/>12 am</li>
-                        <li><input type="checkbox" value = "1"  onChange={this.handleFriday}/>1 am</li>
-                        <li><input type="checkbox" value = "2"  onChange={this.handleFriday}/>2 am </li>
-                        <li><input type="checkbox" value = "3"  onChange={this.handleFriday}/>3 am </li>
-                        <li><input type="checkbox" value = "4"  onChange={this.handleFriday}/>4 am </li>
-                        <li><input type="checkbox" value = "5"  onChange={this.handleFriday}/>5 am </li>
-                        <li><input type="checkbox" value = "6"  onChange={this.handleFriday}/>6 am </li>
-                        <li><input type="checkbox" value = "7"  onChange={this.handleFriday}/>7 am </li>
-                        <li><input type="checkbox" value = "8"  onChange={this.handleFriday}/>8 am </li>
-                        <li><input type="checkbox" value = "9" onChange={this.handleFriday}/>9 am </li>
-                        <li><input type="checkbox" value = "10" onChange={this.handleFriday}/>10 am </li>
-                        <li><input type="checkbox" value = "11" onChange={this.handleFriday}/>11 am </li>
-                        <li><input type="checkbox" value = "12" onChange={this.handleFriday}/>12 pm </li>
-                        <li><input type="checkbox" value = "13" onChange={this.handleFriday}/>1 pm </li>
-                        <li><input type="checkbox" value = "14" onChange={this.handleFriday}/>2 pm </li>
-                        <li><input type="checkbox" value = "15" onChange={this.handleFriday}/>3 pm </li>
-                        <li><input type="checkbox" value = "16" onChange={this.handleFriday}/>4 pm </li>
-                        <li><input type="checkbox" value = "17" onChange={this.handleFriday}/>5 pm </li>
-                        <li><input type="checkbox" value = "18" onChange={this.handleFriday}/>6 pm </li>
-                        <li><input type="checkbox" value = "19" onChange={this.handleFriday}/>7 pm </li>
-                        <li><input type="checkbox" value = "20" onChange={this.handleFriday}/>8 pm </li>
-                        <li><input type="checkbox" value = "21" onChange={this.handleFriday}/>9 pm </li>
-                        <li><input type="checkbox" value = "22" onChange={this.handleFriday}/>10 pm </li>
-                        <li><input type="checkbox" value = "23" onChange={this.handleFriday}/>11 pm </li>
-                    </ul>
-
-                    <span class="anchor">Saturday</span>
-                    <ul class="items">
-                        <li><input type="checkbox" value = "0"  onChange={this.handleSaturday}/>12 am</li>
-                        <li><input type="checkbox" value = "1"  onChange={this.handleSaturday}/>1 am</li>
-                        <li><input type="checkbox" value = "2"  onChange={this.handleSaturday}/>2 am </li>
-                        <li><input type="checkbox" value = "3"  onChange={this.handleSaturday}/>3 am </li>
-                        <li><input type="checkbox" value = "4"  onChange={this.handleSaturday}/>4 am </li>
-                        <li><input type="checkbox" value = "5"  onChange={this.handleSaturday}/>5 am </li>
-                        <li><input type="checkbox" value = "6"  onChange={this.handleSaturday}/>6 am </li>
-                        <li><input type="checkbox" value = "7"  onChange={this.handleSaturday}/>7 am </li>
-                        <li><input type="checkbox" value = "8"  onChange={this.handleSaturday}/>8 am </li>
-                        <li><input type="checkbox" value = "9" onChange={this.handleSaturday}/>9 am </li>
-                        <li><input type="checkbox" value = "10" onChange={this.handleSaturday}/>10 am </li>
-                        <li><input type="checkbox" value = "11" onChange={this.handleSaturday}/>11 am </li>
-                        <li><input type="checkbox" value = "12" onChange={this.handleSaturday}/>12 pm </li>
-                        <li><input type="checkbox" value = "13" onChange={this.handleSaturday}/>1 pm </li>
-                        <li><input type="checkbox" value = "14" onChange={this.handleSaturday}/>2 pm </li>
-                        <li><input type="checkbox" value = "15" onChange={this.handleSaturday}/>3 pm </li>
-                        <li><input type="checkbox" value = "16" onChange={this.handleSaturday}/>4 pm </li>
-                        <li><input type="checkbox" value = "17" onChange={this.handleSaturday}/>5 pm </li>
-                        <li><input type="checkbox" value = "18" onChange={this.handleSaturday}/>6 pm </li>
-                        <li><input type="checkbox" value = "19" onChange={this.handleSaturday}/>7 pm </li>
-                        <li><input type="checkbox" value = "20" onChange={this.handleSaturday}/>8 pm </li>
-                        <li><input type="checkbox" value = "21" onChange={this.handleSaturday}/>9 pm </li>
-                        <li><input type="checkbox" value = "22" onChange={this.handleSaturday}/>10 pm </li>
-                        <li><input type="checkbox" value = "23" onChange={this.handleSaturday}/>11 pm </li>
-                    </ul>
-
-                    <span class="anchor">Sunday</span>
-                    <ul class="items">
-                        <li><input type="checkbox" value = "0"  onChange={this.handleSunday}/>12 am</li>
-                        <li><input type="checkbox" value = "1"  onChange={this.handleSunday}/>1 am</li>
-                        <li><input type="checkbox" value = "2"  onChange={this.handleSunday}/>2 am </li>
-                        <li><input type="checkbox" value = "3"  onChange={this.handleSunday}/>3 am </li>
-                        <li><input type="checkbox" value = "4"  onChange={this.handleSunday}/>4 am </li>
-                        <li><input type="checkbox" value = "5"  onChange={this.handleSunday}/>5 am </li>
-                        <li><input type="checkbox" value = "6"  onChange={this.handleSunday}/>6 am </li>
-                        <li><input type="checkbox" value = "7"  onChange={this.handleSunday}/>7 am </li>
-                        <li><input type="checkbox" value = "8"  onChange={this.handleSunday}/>8 am </li>
-                        <li><input type="checkbox" value = "9" onChange={this.handleSunday}/>9 am </li>
-                        <li><input type="checkbox" value = "10" onChange={this.handleSunday}/>10 am </li>
-                        <li><input type="checkbox" value = "11" onChange={this.handleSunday}/>11 am </li>
-                        <li><input type="checkbox" value = "12" onChange={this.handleSunday}/>12 pm </li>
-                        <li><input type="checkbox" value = "13" onChange={this.handleSunday}/>1 pm </li>
-                        <li><input type="checkbox" value = "14" onChange={this.handleSunday}/>2 pm </li>
-                        <li><input type="checkbox" value = "15" onChange={this.handleSunday}/>3 pm </li>
-                        <li><input type="checkbox" value = "16" onChange={this.handleSunday}/>4 pm </li>
-                        <li><input type="checkbox" value = "17" onChange={this.handleSunday}/>5 pm </li>
-                        <li><input type="checkbox" value = "18" onChange={this.handleSunday}/>6 pm </li>
-                        <li><input type="checkbox" value = "19" onChange={this.handleSunday}/>7 pm </li>
-                        <li><input type="checkbox" value = "20" onChange={this.handleSunday}/>8 pm </li>
-                        <li><input type="checkbox" value = "21" onChange={this.handleSunday}/>9 pm </li>
-                        <li><input type="checkbox" value = "22" onChange={this.handleSunday}/>10 pm </li>
-                        <li><input type="checkbox" value = "23" onChange={this.handleSunday}/>11 pm </li>
-                    </ul>
+                    <table border='1' class='table'>
+                        <tbody>
+                            <tr>
+                                <td>Monday</td>
+                                <td><input type="checkbox" value="8" onChange={this.handleMonday} />8 am </td>
+                                <td><input type="checkbox" value="9" onChange={this.handleMonday} />9 am </td>
+                                <td><input type="checkbox" value="10" onChange={this.handleMonday} />10 am </td>
+                                <td><input type="checkbox" value="11" onChange={this.handleMonday} />11 am </td>
+                                <td><input type="checkbox" value="12" onChange={this.handleMonday} />12 pm </td>
+                                <td><input type="checkbox" value="13" onChange={this.handleMonday} />1 pm </td>
+                                <td><input type="checkbox" value="14" onChange={this.handleMonday} />2 pm </td>
+                                <td><input type="checkbox" value="15" onChange={this.handleMonday} />3 pm </td>
+                                <td><input type="checkbox" value="16" onChange={this.handleMonday} />4 pm </td>
+                                <td><input type="checkbox" value="17" onChange={this.handleMonday} />5 pm </td>
+                                <td><input type="checkbox" value="18" onChange={this.handleMonday} />6 pm </td>
+                                <td><input type="checkbox" value="19" onChange={this.handleMonday} />7 pm </td>
+                                <td><input type="checkbox" value="20" onChange={this.handleMonday} />8 pm </td>
+                                <td><input type="checkbox" value="21" onChange={this.handleMonday} />9 pm </td>
+                            </tr><tr>
+                                <td>Tuesday</td>
+                                <td><input type="checkbox" value="8" onChange={this.handleTuesday} />8 am </td>
+                                <td><input type="checkbox" value="9" onChange={this.handleTuesday} />9 am </td>
+                                <td><input type="checkbox" value="10" onChange={this.handleTuesday} />10 am </td>
+                                <td><input type="checkbox" value="11" onChange={this.handleTuesday} />11 am </td>
+                                <td><input type="checkbox" value="12" onChange={this.handleTuesday} />12 pm </td>
+                                <td><input type="checkbox" value="13" onChange={this.handleTuesday} />1 pm </td>
+                                <td><input type="checkbox" value="14" onChange={this.handleTuesday} />2 pm </td>
+                                <td><input type="checkbox" value="15" onChange={this.handleTuesday} />3 pm </td>
+                                <td><input type="checkbox" value="16" onChange={this.handleTuesday} />4 pm </td>
+                                <td><input type="checkbox" value="17" onChange={this.handleTuesday} />5 pm </td>
+                                <td><input type="checkbox" value="18" onChange={this.handleTuesday} />6 pm </td>
+                                <td><input type="checkbox" value="19" onChange={this.handleTuesday} />7 pm </td>
+                                <td><input type="checkbox" value="20" onChange={this.handleTuesday} />8 pm </td>
+                                <td><input type="checkbox" value="21" onChange={this.handleTuesday} />9 pm </td>
+                            </tr>
+                            <tr>
+                                <td>Wednesday</td>
+                                <td><input type="checkbox" value="8" onChange={this.handleWednesday} />8 am </td>
+                                <td><input type="checkbox" value="9" onChange={this.handleWednesday} />9 am </td>
+                                <td><input type="checkbox" value="10" onChange={this.handleWednesday} />10 am </td>
+                                <td><input type="checkbox" value="11" onChange={this.handleWednesday} />11 am </td>
+                                <td><input type="checkbox" value="12" onChange={this.handleWednesday} />12 pm </td>
+                                <td><input type="checkbox" value="13" onChange={this.handleWednesday} />1 pm </td>
+                                <td><input type="checkbox" value="14" onChange={this.handleWednesday} />2 pm </td>
+                                <td><input type="checkbox" value="15" onChange={this.handleWednesday} />3 pm </td>
+                                <td><input type="checkbox" value="16" onChange={this.handleWednesday} />4 pm </td>
+                                <td><input type="checkbox" value="17" onChange={this.handleWednesday} />5 pm </td>
+                                <td><input type="checkbox" value="18" onChange={this.handleWednesday} />6 pm </td>
+                                <td><input type="checkbox" value="19" onChange={this.handleWednesday} />7 pm </td>
+                                <td><input type="checkbox" value="20" onChange={this.handleWednesday} />8 pm </td>
+                                <td><input type="checkbox" value="21" onChange={this.handleWednesday} />9 pm </td>
+                            </tr>
+                            <tr>
+                                <td>Thursday</td>
+                                <td><input type="checkbox" value="8" onChange={this.handleThursday} />8 am </td>
+                                <td><input type="checkbox" value="9" onChange={this.handleThursday} />9 am </td>
+                                <td><input type="checkbox" value="10" onChange={this.handleThursday} />10 am </td>
+                                <td><input type="checkbox" value="11" onChange={this.handleThursday} />11 am </td>
+                                <td><input type="checkbox" value="12" onChange={this.handleThursday} />12 pm </td>
+                                <td><input type="checkbox" value="13" onChange={this.handleThursday} />1 pm </td>
+                                <td><input type="checkbox" value="14" onChange={this.handleThursday} />2 pm </td>
+                                <td><input type="checkbox" value="15" onChange={this.handleThursday} />3 pm </td>
+                                <td><input type="checkbox" value="16" onChange={this.handleThursday} />4 pm </td>
+                                <td><input type="checkbox" value="17" onChange={this.handleThursday} />5 pm </td>
+                                <td><input type="checkbox" value="18" onChange={this.handleThursday} />6 pm </td>
+                                <td><input type="checkbox" value="19" onChange={this.handleThursday} />7 pm </td>
+                                <td><input type="checkbox" value="20" onChange={this.handleThursday} />8 pm </td>
+                                <td><input type="checkbox" value="21" onChange={this.handleThursday} />9 pm </td>
+                            </tr>
+                            <tr>
+                                <td>Friday</td>
+                                <td><input type="checkbox" value="8" onChange={this.handleFriday} />8 am </td>
+                                <td><input type="checkbox" value="9" onChange={this.handleFriday} />9 am </td>
+                                <td><input type="checkbox" value="10" onChange={this.handleFriday} />10 am </td>
+                                <td><input type="checkbox" value="11" onChange={this.handleFriday} />11 am </td>
+                                <td><input type="checkbox" value="12" onChange={this.handleFriday} />12 pm </td>
+                                <td><input type="checkbox" value="13" onChange={this.handleFriday} />1 pm </td>
+                                <td><input type="checkbox" value="14" onChange={this.handleFriday} />2 pm </td>
+                                <td><input type="checkbox" value="15" onChange={this.handleFriday} />3 pm </td>
+                                <td><input type="checkbox" value="16" onChange={this.handleFriday} />4 pm </td>
+                                <td><input type="checkbox" value="17" onChange={this.handleFriday} />5 pm </td>
+                                <td><input type="checkbox" value="18" onChange={this.handleFriday} />6 pm </td>
+                                <td><input type="checkbox" value="19" onChange={this.handleFriday} />7 pm </td>
+                                <td><input type="checkbox" value="20" onChange={this.handleFriday} />8 pm </td>
+                                <td><input type="checkbox" value="21" onChange={this.handleFriday} />9 pm </td>
+                            </tr>
+                            <tr>
+                                <td>Saturday</td>
+                                <td><input type="checkbox" value="8" onChange={this.handleSaturday} />8 am </td>
+                                <td><input type="checkbox" value="9" onChange={this.handleSaturday} />9 am </td>
+                                <td><input type="checkbox" value="10" onChange={this.handleSaturday} />10 am </td>
+                                <td><input type="checkbox" value="11" onChange={this.handleSaturday} />11 am </td>
+                                <td><input type="checkbox" value="12" onChange={this.handleSaturday} />12 pm </td>
+                                <td><input type="checkbox" value="13" onChange={this.handleSaturday} />1 pm </td>
+                                <td><input type="checkbox" value="14" onChange={this.handleSaturday} />2 pm </td>
+                                <td><input type="checkbox" value="15" onChange={this.handleSaturday} />3 pm </td>
+                                <td><input type="checkbox" value="16" onChange={this.handleSaturday} />4 pm </td>
+                                <td><input type="checkbox" value="17" onChange={this.handleSaturday} />5 pm </td>
+                                <td><input type="checkbox" value="18" onChange={this.handleSaturday} />6 pm </td>
+                                <td><input type="checkbox" value="19" onChange={this.handleSaturday} />7 pm </td>
+                                <td><input type="checkbox" value="20" onChange={this.handleSaturday} />8 pm </td>
+                                <td><input type="checkbox" value="21" onChange={this.handleSaturday} />9 pm </td>
+                            </tr>
+                            <tr>
+                                <td>Sunday</td>
+                                <td><input type="checkbox" value="8" onChange={this.handleSunday} />8 am </td>
+                                <td><input type="checkbox" value="9" onChange={this.handleSunday} />9 am </td>
+                                <td><input type="checkbox" value="10" onChange={this.handleSunday} />10 am </td>
+                                <td><input type="checkbox" value="11" onChange={this.handleSunday} />11 am </td>
+                                <td><input type="checkbox" value="12" onChange={this.handleSunday} />12 pm </td>
+                                <td><input type="checkbox" value="13" onChange={this.handleSunday} />1 pm </td>
+                                <td><input type="checkbox" value="14" onChange={this.handleSunday} />2 pm </td>
+                                <td><input type="checkbox" value="15" onChange={this.handleSunday} />3 pm </td>
+                                <td><input type="checkbox" value="16" onChange={this.handleSunday} />4 pm </td>
+                                <td><input type="checkbox" value="17" onChange={this.handleSunday} />5 pm </td>
+                                <td><input type="checkbox" value="18" onChange={this.handleSunday} />6 pm </td>
+                                <td><input type="checkbox" value="19" onChange={this.handleSunday} />7 pm </td>
+                                <td><input type="checkbox" value="20" onChange={this.handleSunday} />8 pm </td>
+                                <td><input type="checkbox" value="21" onChange={this.handleSunday} />9 pm </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <button onClick={this.onBook} name = {this.props.user.username}>Confirm Availability</button>
             </div>
