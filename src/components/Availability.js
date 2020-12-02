@@ -57,7 +57,8 @@ async bookClicked(e){
                 username: this.props.availabilityList.tutorid,
                 type: 'tutor'
                 };
-        this.props.findAvailability(user);
+    this.props.findAvailability(user);
+    alert("Succesfully booked");
 }
 
 render() {

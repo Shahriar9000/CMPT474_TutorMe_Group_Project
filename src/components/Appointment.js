@@ -44,6 +44,7 @@ import '../Css/Appoinment.css';
         };
         console.log(user);
         this.props.addAvailability(user);
+        alert("Succesfully updated your next week availability");
     }
     gohome(e) {
         this.setState({ gohome: true });
