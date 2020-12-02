@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {registerStudent,registerTeacher} from '../actions/registerActions';
 import { Link } from 'react-router-dom';
+import '../Css/Home.css';
+
+
+
  class SignUp extends Component {
     constructor(props){
         super(props);

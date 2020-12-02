@@ -6,7 +6,7 @@ import Teacher from './Teacher';
 import {Link} from 'react-router-dom';
 import { findStudents } from '../actions/locationActions';
 import '../Css/Home.css';
-
+import {Nav, Row, Col, Container, Form, Button } from 'react-bootstrap';
  class Home extends Component {
     constructor(props){
         super(props);
@@ -80,23 +80,34 @@ import '../Css/Home.css';
             alert("Please enter a valid username or password");
         }
         return (
-            <div id ='mainbody'>
-                <h1 id = 'header' >Welcome To Tutor ME</h1>
-                <nav id="nav">
-                    <Link to="/signUp" id = "signUp">Register</Link>
-                </nav>
-                <form  onSubmit = {this.onSubmit}>
-                    <label>Username: </label>
-                    <input type="text" name="username" onChange = {this.onChange}></input><br></br><br></br>
-                    <label>Password: </label>
-                    <input type="password" name="password" onChange = {this.onChange}></input><br></br><br></br>
-                    <div>
+        
+            <div className="Login">
+            <Container id ='mainbody'>
+                <h1 id = 'header' >TutorME</h1> <br></br><br></br>
+
+            
+                <Form onSubmit = {this.onSubmit}>
+                    <Form.Group controlId="formBasicUsername">
+                         <Form.Label>Username:</Form.Label>
+                         <Form.Control type="text" name="username" onChange = {this.onChange} placeholder="Enter username" />
+                         {/* <input type="text" name="username" onChange = {this.onChange}></input><br></br><br></br> */}
+                         <Form.Text className="text-muted">We'll never share your email with anyone else</Form.Text>
+                    </Form.Group>
+                    <Form.Group controlId="formBasicPassword">
+                         <Form.Label>Password:</Form.Label>
+                         <Form.Control type="password" name="password" onChange = {this.onChange} placeholder="Enter password" />
+                    </Form.Group>
+
                         <label>User type:</label><br></br>
                         <input className = "myradio" type="radio" name="type" value = "1" /><label>Student</label><br></br>
                         <input className = "myradio" type="radio" name="type" value = "2"/><label>Teacher</label><br></br><br></br>
-                    </div>
-                    <input type="submit" value="Sign in" id ='SignIn'></input><br></br>
-                </form> 
+                    
+                    <Button type="submit" value="Sign in" id ='SignIn'>LOG IN</Button><br></br><br></br>
+                    <Button href='\signUp' id ='SignUp'>REGISTER</Button>
+                    {/* <input ></input><br></br> */}
+                </Form> 
+               
+            </Container>
             </div>
         )
     }
