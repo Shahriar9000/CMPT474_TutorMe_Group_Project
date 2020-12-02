@@ -102,7 +102,7 @@ import {Nav, Row, Col, Container, Form, Button } from 'react-bootstrap';
                         <input className = "myradio" type="radio" name="type" value = "2"/><label>Teacher</label><br></br><br></br>
                     
                     <Button type="submit" value="Sign in" id ='SignIn'>LOG IN</Button><br></br><br></br>
-                    <Button href='\signUp' id ='SignUp'>REGISTER</Button>
+                    <Link to ="/signUp" id='signUp'><Button>REGISTER</Button></Link>
                     {/* <input ></input><br></br> */}
                 </Form> 
                
