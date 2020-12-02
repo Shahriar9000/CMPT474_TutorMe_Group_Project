@@ -49,7 +49,7 @@ async bookClicked(e){
         body: JSON.stringify(user)
     };
     let req;
-    await fetch('https://15iwsfpdy6.execute-api.us-east-1.amazonaws.com/dev/appointment/bookAvailability',requestOptions)
+    await fetch('https://ksc2toqk8k.execute-api.us-east-1.amazonaws.com/dev/appointment/bookAvailability',requestOptions)
         .then(response => response.json())
         .then(data => req = data);
     console.log(req);

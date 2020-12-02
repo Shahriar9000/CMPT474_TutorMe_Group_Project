@@ -2,7 +2,7 @@ import { FETCH_STUDENT } from './types';
 
 
   export  const  logIn = inputData =>  dispatch => {
-    fetch('https://thbrt8c830.execute-api.us-east-1.amazonaws.com/dev/auth',{
+    fetch('https://ksc2toqk8k.execute-api.us-east-1.amazonaws.com/dev/auth',{
     method: 'POST',
     headers: {
       'content-type': 'application/json',
