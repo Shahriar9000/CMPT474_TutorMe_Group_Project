@@ -80,7 +80,6 @@ import {Nav, Row, Col, Container, Form, Button } from 'react-bootstrap';
             alert("Please enter a valid username or password");
         }
         return (
-        
             <div className="Login">
             <Container id ='mainbody'>
                 <h1 id = 'header' >TutorME</h1> <br></br><br></br>
