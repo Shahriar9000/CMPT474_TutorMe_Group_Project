@@ -15,7 +15,7 @@ provider:
     TUTORS_TABLE: ${self:custom.tutorsTable}
     APPOINTMENTS_TABLE: ${self:custom.appointmentsTable}
 functions:
-  authentication:
+  authenticationF:
     role: myDynamoRole
     handler: app.auth
     events:
@@ -24,7 +24,7 @@ functions:
           method: post
           cors:
             origins: '*'
-  addUser:
+  addUserF:
     role: myDynamoRole
     handler: app.addUser
     events:
@@ -33,7 +33,7 @@ functions:
           method: post
           cors:
             origins: '*'
-  getStudentByLocation:
+  getStudentByLocationF:
     role: myDynamoRole
     handler: app.getStudentByLocation
     events:
@@ -42,7 +42,7 @@ functions:
           method: get
           cors:
             origins: '*'
-  getTutorByLocation:
+  getTutorByLocationF:
     role: myDynamoRole
     handler: app.getTutorByLocation
     events:
@@ -51,7 +51,7 @@ functions:
           method: get
           cors: 
             origins: '*'
-  getTutorByUsername:
+  getTutorByUsernameF:
     role: myDynamoRole
     handler: app.getTutorByUsername
     events:
@@ -60,7 +60,7 @@ functions:
           method: get
           cors: 
             origins: '*'
-  getStudentByUsernam:
+  getStudentByUsernameF:
     role: myDynamoRole
     handler: app.getStudentByUsername
     events:
@@ -69,7 +69,7 @@ functions:
           method: get
           cors: 
             origins: '*'
-  setAvailability:
+  setAvailabilityF:
     role: appointmentsRole
     handler: appointments.setAvailability
     events:
@@ -78,7 +78,7 @@ functions:
           method: post
           cors: 
             origins: '*'
-  getAvailability:
+  getAvailabilityF:
     role: appointmentsRole
     handler: appointments.getAvailability
     events:
@@ -87,7 +87,7 @@ functions:
           method: post
           cors: 
             origins: '*'
-  bookAvailability:
+  bookAvailabilityF:
     role: appointmentsRole
     handler: appointments.bookAvailability
     events:
