@@ -1,0 +1,27 @@
+// deployment backend
+
+cd ~/Desktop/CMPT474_TutorMe_Group_project
+sudo npm i
+// npm fix audit if needed
+
+cd ~/Desktop/CMPT474_TutorMe_Group_project/serverless
+sudo npm i
+// npm fix audit if needed
+
+// set aws credentials
+sls deploy
+
+
+// deployment frontend
+
+cd ~/Desktop/CMPT474_TutorMe_Group_project
+sudo npm install -g @aws-amplify/cli
+
+rm -r amplify/
+
+amplify init
+// choose defaults settings
+
+amplify hosting add
+
+amplify publish

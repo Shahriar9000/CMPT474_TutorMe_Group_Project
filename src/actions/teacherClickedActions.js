@@ -2,7 +2,7 @@ import { FETCH_TEACHER_CLICKED } from './types';
 
 
 export  const findTeacherClicked = inputData => dispatch => {
-  fetch('https://thbrt8c830.execute-api.us-east-1.amazonaws.com/dev/getTutor/username/' + inputData, {
+  fetch('https://kzas28fxv0.execute-api.us-east-1.amazonaws.com/dev/getTutor/username/' + inputData, {
     method: 'GET'
   })
     .then(res => res.json())
@@ -17,7 +17,7 @@ export  const findTeacherClicked = inputData => dispatch => {
 };
 
 export  const findStudentClicked = inputData => dispatch => {
-  fetch('https://thbrt8c830.execute-api.us-east-1.amazonaws.com/dev/getStudent/username/' + inputData, {
+  fetch('https://kzas28fxv0.execute-api.us-east-1.amazonaws.com/dev/getStudent/username/' + inputData, {
     method: 'GET'
   })
     .then(res => res.json())
